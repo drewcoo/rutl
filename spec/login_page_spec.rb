@@ -1,6 +1,6 @@
 # Horrible kludge to at least get non-browser tests running on Travis for now.
 # Prove that Travis can pass.
-return if 'true' == ENV'TRAVIS']
+return if 'true' == ENV['TRAVIS']
 
 require 'spec_helper'
 
