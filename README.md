@@ -1,5 +1,7 @@
 # RUTL
 
+[![Build status](https://api.travis-ci.org/drewcoo/rutl.svg)](https://travis-ci.org/drewcoo/rutl)
+
 This is the Ruby Ui Test Library, or RUTL. Not to be confused with the Rutles.
 https://www.rutles.org/
 
@@ -82,4 +84,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/drewco
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-

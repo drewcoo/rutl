@@ -14,7 +14,10 @@ class ChromeInterface < BaseInterface
     options.add_argument('--disable-popup-blocking')
     options.add_argument('--disable-translate')
     # Run headless on TravisCI
-    options.add_argument('--headless --disable-gpu') if 'true' == ENV['TRAVIS']
+    if 'true' == ENV['TRAVIS']
+      options.add_argument('--headless ')
+      options.add_argument('--disable-gpu')
+    end
     @driver = Selenium::WebDriver.for :chrome, options: options
     super
   end
