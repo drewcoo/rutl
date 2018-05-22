@@ -59,12 +59,15 @@ Coming up soon in no particular order:
 
 ## Development
 
+Set everything up:
     1. Check out the repo.
     2. `cd` to the repo.
     3. `bundle install`
     4. `bundle exec rake`
 Great! You've checked out the code, installed everything and run the tests.
 
+Rubocop. I still have to tweak what I want it to complain about.
+    `bundle exec rubocop`
 
 ### delete?
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
