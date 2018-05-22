@@ -1,6 +1,7 @@
 # RUTL
 
-[![Build status](https://api.travis-ci.org/drewcoo/rutl.svg)](https://travis-ci.org/drewcoo/rutl)
+[![TravisCI](https://api.travis-ci.org/drewcoo/rutl.svg)](https://travis-ci.org/drewcoo/rutl)
+[![CircleCI](https://circleci.com/gh/drewcoo/rutl.svg?style=shield)](https://circleci.com/gh/drewcoo/rutl)
 
 This is the Ruby Ui Test Library, or RUTL. Not to be confused with the Rutles.
 https://www.rutles.org/
@@ -35,7 +36,8 @@ Or install it yourself as:
 TODO: Write usage instructions here
 
 ## Roadmap
-Coming up soon in no particular order:
+Coming up soon in almost no order:
+* Make browser tests work on TravisCI.
 * A test framework should have better tests. Goes with next bullet.
 * Flesh out null interface/driver. Make them do what a real browser does.
 * Make geckodriver work. Geckodriver-helper is failing me.
