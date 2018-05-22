@@ -13,6 +13,7 @@ class ChromeInterface < BaseInterface
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--disable-popup-blocking')
     options.add_argument('--disable-translate')
+    options.add_argument('--headless --disable-gpu')
     @driver = Selenium::WebDriver.for :chrome, options: options
     super
   end
