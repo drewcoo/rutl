@@ -30,11 +30,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 1.16'
-  spec.add_development_dependency 'chromedriver-helper', '~> 1.2'
-  #spec.add_development_dependency 'geckodriver-helper', '~>  0.20'
+  unless 'true' == ENV['TRAVIS']
+    spec.add_development_dependency 'chromedriver-helper', '~> 1.2'
+    # spec.add_development_dependency 'geckodriver-helper', '~>  0.20'
+  end
   spec.add_development_dependency 'rake', '~> 12.3'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 0.55'
   spec.add_development_dependency 'selenium-webdriver', '~> 3.12'
 end
-
