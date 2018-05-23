@@ -30,7 +30,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 1.15'
-  spec.add_development_dependency 'chromedriver-helper', '~> 1.2'
+  unless ENV['CIRCLECI'].nil?
+    spec.add_development_dependency 'chromedriver-helper', '~> 1.2'
+  end
   # spec.add_development_dependency 'geckodriver-helper', '~>  0.20'
   spec.add_development_dependency 'rake', '~> 12.3'
   spec.add_development_dependency 'rspec', '~> 3.0'
