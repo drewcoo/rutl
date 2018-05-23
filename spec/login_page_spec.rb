@@ -1,4 +1,3 @@
-=begin
 require 'spec_helper'
 
 describe 'LoginPageTest' do
@@ -47,4 +46,3 @@ describe 'LoginPageTest' do
     expect(browser.current_url).to eq 'http://the-internet.herokuapp.com/login'
   end
 end
-=end
