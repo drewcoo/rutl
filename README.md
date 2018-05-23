@@ -3,6 +3,7 @@
 [![TravisCI](https://api.travis-ci.org/drewcoo/rutl.svg)](https://travis-ci.org/drewcoo/rutl)
 [![CircleCI](https://circleci.com/gh/drewcoo/rutl.svg?style=shield)](https://circleci.com/gh/drewcoo/rutl)
 [![Coverage Status](https://coveralls.io/repos/github/drewcoo/rutl/badge.svg?branch=master)](https://coveralls.io/github/drewcoo/rutl?branch=master)
+[![Gem Version](https://badge.fury.io/rb/rutl.svg)](https://badge.fury.io/rb/rutl)
 
 This is the Ruby Ui Test Library, or RUTL. Not to be confused with the Rutles.
 https://www.rutles.org/
@@ -73,9 +74,6 @@ Great! You've checked out the code, installed everything and run the tests.
 
 Rubocop. I still have to tweak what I want it to complain about.
     `bundle exec rubocop`
-
-### delete?
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
