@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'rutl'
 
@@ -19,6 +22,10 @@ end
 
 RSpec.configure do |config|
   # config.include DefaultRspecToBrowser
+
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
+
   config.order = :random
   config.fail_fast = 0
   config.include_context 'globals'
