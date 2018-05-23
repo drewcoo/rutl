@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
   unless ENV['CIRCLECI'].nil?
     spec.add_development_dependency 'chromedriver-helper', '~> 1.2'
   end
-  # spec.add_development_dependency 'geckodriver-helper', '~>  0.20'
+  spec.add_development_dependency 'geckodriver-helper', '~>  0.20'
   spec.add_development_dependency 'rake', '~> 12.3'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec_junit_formatter', '~> 0.3'
