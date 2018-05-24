@@ -1,4 +1,4 @@
-require 'webdrivers' #if ENV['CIRCLECI'].nil?
+require 'webdrivers' if ENV['CIRCLECI'].nil?
 require 'spec_helper'
 
 describe 'LoginPageTest' do
