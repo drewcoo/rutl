@@ -13,6 +13,9 @@ class FirefoxInterface < BaseInterface
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--disable-popup-blocking')
     options.add_argument('--disable-translate')
+    if 'true' == ENV['TRAVIS']
+      options.add_argument('--headless')
+    #end
     @driver = Selenium::WebDriver.for :firefox, options: options
     super
   end
