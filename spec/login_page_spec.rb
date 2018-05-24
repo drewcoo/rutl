@@ -1,3 +1,4 @@
+require 'webdrivers'
 require 'spec_helper'
 
 describe 'LoginPageTest' do

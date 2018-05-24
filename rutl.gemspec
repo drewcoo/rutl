@@ -31,12 +31,13 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+spec.add_development_dependency 'webdrivers', '~> 3.0'
+
   spec.add_development_dependency 'bundler', '~> 1.15'
-  if ENV['CIRCLECI'].nil?
-    spec.add_development_dependency 'chromedriver-helper', '~> 1.2'
-  end
-  spec.add_development_dependency 'coveralls' #@, require: false
-  #spec.add_development_dependency 'geckodriver-helper', '~>  0.20'
+  #if ENV['CIRCLECI'].nil?
+  #  spec.add_development_dependency 'chromedriver-helper', '~> 1.2'
+  #end
+  spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'gem-release'
   spec.add_development_dependency 'rake', '~> 12.3'
   spec.add_development_dependency 'rspec', '~> 3.0'

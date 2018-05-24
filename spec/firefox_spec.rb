@@ -1,5 +1,4 @@
-# Commented out unitl I figure out how to get geckodriver working.
-=begin
+require 'webdrivers'
 require 'spec_helper'
 
 describe 'LoginPageTest' do
@@ -18,4 +17,3 @@ describe 'LoginPageTest' do
     end
   end
 end
-=end
