@@ -34,12 +34,14 @@ Gem::Specification.new do |spec|
 
 
   spec.add_development_dependency 'bundler', '~> 1.15'
-  if ENV['CIRCLECI'].nil?
+  #if ENV['CIRCLECI'].nil?
+  # Leave this in. I don't think it's a problem.
+  
     # The preferred way to do this on CricleCI seems to be using Circles config.
     # And either update that to do things to get the latest of each browser
     # Or, I suppose, Leave this dependency in and chnage the path.
     spec.add_development_dependency 'webdrivers', '~> 3.0'
-  end
+  #end
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'gem-release'
   spec.add_development_dependency 'rake', '~> 12.3'
