@@ -15,7 +15,7 @@ class FirefoxInterface < BaseInterface
     options.add_argument('--disable-translate')
     if 'true' == ENV['TRAVIS']
       options.add_argument('--headless')
-    #end
+    end
     @driver = Selenium::WebDriver.for :firefox, options: options
     super
   end
