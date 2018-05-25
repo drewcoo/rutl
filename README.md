@@ -5,8 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/drewcoo/rutl/badge.svg?branch=master)](https://coveralls.io/github/drewcoo/rutl?branch=master)
 [![Gem Version](https://badge.fury.io/rb/rutl.svg)](https://badge.fury.io/rb/rutl)
 
-This is the Ruby Ui Test Library, or RUTL. Not to be confused with the Rutles.
-https://www.rutles.org/
+This is the Ruby Ui Test Library, or RUTL. Not to be confused with [The Rutles](https://www.rutles.org/).
 
 Framework goals:
 * Define what's on a page in an easy, flexible way. Easy page objects!
@@ -39,22 +38,22 @@ TODO: Write usage instructions here
 
 ## Roadmap
 Coming up soon in almost no order:
-* Make browser tests work on TravisCI.
 * A test framework should have better tests. Goes with next bullet.
 * Flesh out null interface/driver. Make them do what a real browser does.
-* Make geckodriver work. Geckodriver-helper is failing me.
 * Restructure tests to handle fake browsers and real browsers. Same structure?
-* Make this work with pages in some other location so we can use it as a gem.
-* Make work with TravisCI.
+* Make this work with pages files in some other location so we can use it as a gem.
 * Put more info in this readme.
 * Take screenshots.
 * Diff screenshots. Make this smart so we don't have to be experts.
-* InternetExplorerDriver
+* The webdriver gem should already include InternetExplorerDriver. Maybe run tests on AppVeyor.
 * Other browser drivers? Look at https://github.com/fnando/browser
 * Get this working with Appium:
   * Make TK app to test on desktops and test it.
+    * Can Ruby TK create accesible apps?
   * Make Android example app and get this to work.
+    * Corboba?
   * Same with iPhone.
+    * Same Cordoba test app?
 * Others?
 * Spidering page object maker.
 * Possibly pair the null browser with auto-generated pages for ______?
@@ -66,10 +65,12 @@ Coming up soon in almost no order:
 ## Development
 
 Set everything up:
+
     1. Check out the repo.
     2. `cd` to the repo.
     3. `bundle install`
     4. `bundle exec rake`
+
 Great! You've checked out the code, installed everything and run the tests.
 
 Rubocop. I still have to tweak what I want it to complain about.
