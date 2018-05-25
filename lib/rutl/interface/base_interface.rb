@@ -12,11 +12,7 @@ class BaseInterface
   end
 
   attr_reader :pages
-
-  # Child classes must implement current_page
-
   attr_accessor :driver
-
   attr_accessor :interface
 
   def initialize(pages:)
@@ -27,7 +23,7 @@ class BaseInterface
 
   def goto(input)
     # TODO: KLUDGY. Fix. Modifier if usage bombs here. *shrug*
-    @driver.interface = @interface if 'NullInterface' == @interface.class.to_s
+    @driver.interface = @interface if @interface.class.to_s == 'NullInterface'
     input = find_page(input) unless input.methods.include?(:url)
 
     @driver.navigate.to input.url
@@ -59,7 +55,7 @@ class BaseInterface
     target_states.each do |state|
       next unless state.url == current_page.url
       page = find_page(state, true)
-      return current_page = page if page.loaded?
+      return page if page.loaded?
     end
     raise current_page.to_s if current_page.class == InternetLoggedInPage
     false

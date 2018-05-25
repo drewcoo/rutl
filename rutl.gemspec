@@ -15,8 +15,6 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/drewcoo/rutl'
   spec.license       = 'MIT'
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = 'https://rubygems.org/gems/rutl'
   else
@@ -24,22 +22,21 @@ Gem::Specification.new do |spec|
       'public gem pushes.'
   end
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
+  spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
-  spec.bindir        = 'exe'
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.bindir = 'exe'
+  spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-
-
   spec.add_development_dependency 'bundler', '~> 1.15'
-  spec.add_development_dependency 'webdrivers', '~> 3.0'
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'gem-release'
   spec.add_development_dependency 'rake', '~> 12.3'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec_junit_formatter', '~> 0.3'
   spec.add_development_dependency 'rubocop', '~> 0.55'
+  spec.add_development_dependency 'rubocop-rspec'
   spec.add_development_dependency 'selenium-webdriver', '~> 3.12'
+  spec.add_development_dependency 'webdrivers', '~> 3.0'
 end

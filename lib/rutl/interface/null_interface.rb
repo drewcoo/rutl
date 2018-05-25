@@ -4,9 +4,6 @@ require 'rutl/interface/base_interface'
 # Interface-level code for fake browser.
 #
 class NullInterface < BaseInterface
-  # Only the null interface>>
-  attr_reader :current_page
-
   @variables = []
   attr_accessor :variables
 

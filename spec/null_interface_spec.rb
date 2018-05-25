@@ -1,13 +1,16 @@
 require 'spec_helper'
+require 'rutl/interface/null_interface'
 
-describe 'BrowserlessPageTest' do
+describe ::NullInterface do
   let(:browser) do
     Browser.new(interface_type: :null, page_object_dir: page_object_dir)
   end
+
   let(:browser2) do
     Browser.new(interface_type: :null, page_object_dir: page_object_dir)
   end
-  before(:each) do
+
+  before do
     browser.goto(Page1)
   end
 
@@ -29,19 +32,15 @@ describe 'BrowserlessPageTest' do
     browser.password_text.set 'am i texting'
     browser.ok_link.click
     browser.okay_text.set 'am i texting NOW'
+  end
 
+  it 'another browser' do
     browser2.goto(Page1)
-
     browser2.password_text.set 'changeme'
-
     # TODO: This is failing. Is it because we get new element to attach wtih
     # each call so I lose the fake string?
     puts browser2.password_text.get
     # expect(browser2.password_text.get).to eq 'changeme'
-
-    # browser2.password_text
-    # browser2.password_text = 'changeme'
-    # browser2.password_text
 
     # doesn't return right value because not setting/reading in browser
     browser2.away_link.click
@@ -57,15 +56,11 @@ describe 'BrowserlessPageTest' do
     expect(page_init.class).not_to eq page_final.class
   end
 
-  it 'click a button; go to another page' do
-    result = browser.ok_button.click
-    expect(result).to eq [Page2]
-    expect(browser.current_page.class).to eq Page2
-    #
-    # TODO: Make browser sense clicks and such, handle waiting,
-    # and handle updatign current_page
-    #
-    # expect(@browser.current_page.class).to eq Page2
+  context 'when click a button' do
+    it 'goes to another page' do
+      browser.ok_button.click
+      expect(browser.current_page.class).to eq Page2
+    end
   end
 
   it 'see url' do

@@ -16,7 +16,7 @@ module DefaultRspecToBrowser
   end
 end
 
-RSpec.shared_context 'globals' do
+RSpec.shared_context 'with globals' do
   let(:page_object_dir) { 'spec/pages' }
 end
 
@@ -28,7 +28,7 @@ RSpec.configure do |config|
 
   config.order = :random
   config.fail_fast = 0
-  config.include_context 'globals'
+  config.include_context 'with globals'
   config.after do
     browser.quit if defined?(browser) && !browser.nil?
   end

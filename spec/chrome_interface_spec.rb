@@ -1,15 +1,17 @@
 require 'webdrivers' if ENV['CIRCLECI'].nil?
 require 'spec_helper'
+require 'rutl/interface/chrome_interface'
 
-describe 'LoginPageTest' do
+describe ChromeInterface do
   let(:browser) do
     Browser.new(page_object_dir: page_object_dir, interface_type: :chrome)
   end
-  before(:each) do
+
+  before do
     browser.goto(InternetLoginPage)
   end
 
-  context 'text field' do
+  context 'with text field' do
     it 'read/write' do
       username = 'foo'
       browser.username_text.set username
@@ -24,7 +26,7 @@ describe 'LoginPageTest' do
     end
   end
 
-  context 'password field' do
+  context 'with password field' do
     it 'read' do
       username = 'foo'
       browser.username_text.set username
