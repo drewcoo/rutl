@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rutl/interface/null_interface'
 
-describe ::NullInterface do
+describe NullInterface do
   let(:browser) do
     Browser.new(interface_type: :null, page_object_dir: page_object_dir)
   end
