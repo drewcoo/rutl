@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 require: rubocop-rspec
 
 AllCops:
@@ -6,11 +8,7 @@ AllCops:
   DisplayStyleGuide: true
   ExtraDetails: true
 
-Metrics/BlockLength:
-  Enabled: false
-
-Metrics/MethodLength:
-  Enabled: false
-
-Style/BracesAroundHashParameters:
-  Enabled: false
+# Should I just disable these?
+# Metrics/BlockLength
+# Metrics/MethodLength
+# Style/BracesAroundHashParameters
