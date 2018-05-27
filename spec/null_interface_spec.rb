@@ -45,7 +45,7 @@ RSpec.describe NullInterface do
     # doesn't return right value because not setting/reading in browser
     browser2.away_link.click
     # expect(browser.current_page.class).to be Page2
-    expect(true).to be true
+    expect(browser2.current_page.class).to eq(Page2)
   end
 
   it 'load another page' do

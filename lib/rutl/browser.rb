@@ -28,7 +28,8 @@ class Browser
     Dir["#{page_object_dir}/*"].each do |file|
       require "rutl/../../#{file}"
       File.open(file).each do |line|
-        names << $1 if line =~ /class (.*) < BasePage/
+        bingo = line.match(/class (.*) < BasePage/)
+        names << bingo[1] if bingo && bingo[1]
       end
     end
     names

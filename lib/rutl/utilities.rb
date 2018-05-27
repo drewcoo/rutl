@@ -34,7 +34,8 @@ module Utilities
 
   def page?(checkme)
     checkme.ancestors.include?(BasePage)
-  rescue # BUGBUG: Didn't have time to find all the things to rescue yet.
+  rescue NoMethodError
+    # This isn't a even a class. It's no page!
     false
   end
 

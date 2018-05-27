@@ -24,7 +24,7 @@ class NullDriver
 
   def to(url)
     result = @interface.find_page(url)
-    @interface.set_current_page result
+    @interface.current_page = result
     result.url
   end
 

@@ -13,9 +13,9 @@ class NullInterface < BaseInterface
     super
   end
 
-  def set_current_page(page)
-    @current_page = page
-  end
+  # The null driver needs to talk to the null interface.
+  # Other driver/interface relations are not like this.
+  attr_writer :current_page
 
   def current_page
     # Default to @pages.first if not set?

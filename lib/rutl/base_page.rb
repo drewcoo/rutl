@@ -9,12 +9,18 @@ class BasePage
   # BUGBUG: Kludgy. What do I really want to do here?
   # Make it easy to define a page's default url and
   # also matchers for page urls for pages with variable urls?
-  def self.url; @url; end
+  def self.url
+    @url
+  end
 
-  def url; self.class.url; end
+  def url
+    self.class.url
+  end
 
   @@children = []
-  def self.children; @@children; end
+  def self.children
+    @@children
+  end
 
   attr_accessor :driver
 
@@ -43,11 +49,6 @@ class BasePage
 
     case element
     when /button/, /checkbox/, /link/
-      # self.class.class_exec do
-      #   define_method(name) do
-      #     Module.const_get(element.capitalize).new(selector, rest)
-      #   end
-      # end
       self.class.class_exec do
         foo = Module.const_get(element.capitalize).new(selector, rest)
         define_method(name) do
@@ -56,25 +57,9 @@ class BasePage
       end
     when /text/
       self.class.class_exec do
-        # foo = Module.const_get(element.capitalize).new(selector, rest)
-        # define_method("_#{name}") do
-        #   foo.get
-        # end
         define_method(name) do
           Module.const_get(element.capitalize).new(selector, rest)
         end
-        # define_method(name.to_s) do
-        #   foo.get
-        # end
-        # define_method((name + '=').to_s) do
-        #   foo.set
-        # end
-        # foo.define_method(:get) do
-        #   foo.get
-        # end
-        # foo.define_method(:set) do
-        #   foo.set
-        # end
       end
     else
       # TODO: replace with a super call. This is useful for debugging for now.

@@ -20,27 +20,6 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 19
 
-# Offense count: 1
-Naming/AccessorMethodName:
-  Exclude:
-    - 'lib/rutl/interface/null_interface.rb'
-
-# Offense count: 1
-RSpec/ExampleLength:
-  Exclude:
-    - 'spec/chrome_interface_spec.rb'
-
-# Offense count: 2
-RSpec/ExpectActual:
-  Exclude:
-    - 'spec/null_interface_spec.rb'
-    - 'spec/rutl_spec.rb'
-
-# Offense count: 1
-RSpec/MultipleExpectations:
-  Exclude:
-    - 'spec/chrome_interface_spec.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -62,27 +41,6 @@ Style/MethodMissingSuper:
     - 'lib/rutl/browser.rb'
     - 'lib/rutl/interface/base_interface.rb'
     - 'spec/spec_helper.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/PerlBackrefs:
-  Exclude:
-    - 'lib/rutl/browser.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: implicit, explicit
-Style/RescueStandardError:
-  Exclude:
-    - 'lib/rutl/utilities.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: AllowIfMethodIsEmpty.
-Style/SingleLineMethods:
-  Exclude:
-    - 'lib/rutl/base_page.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.

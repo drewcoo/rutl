@@ -34,18 +34,23 @@ RSpec.describe ChromeInterface do
     end
   end
 
-  it 'log in' do
-    username = 'tomsmith'
-    password = 'SuperSecretPassword!'
-    browser.username_text.set username
-    expect(browser.username_text.get).to eq username
-    browser.password_text.set password
-    expect(browser.current_url).to eq 'http://the-internet.herokuapp.com/login'
-    expect(browser.current_page.class).to eq InternetLoginPage
-    browser.login_button.click
-    expect(browser.current_page.class).to eq InternetLoggedInPage
-    expect(browser.current_url).to eq 'http://the-internet.herokuapp.com/secure'
-    browser.logout_button.click
-    expect(browser.current_url).to eq 'http://the-internet.herokuapp.com/login'
+  context 'when log in' do
+    before do
+      username = 'tomsmith'
+      password = 'SuperSecretPassword!'
+      browser.username_text.set username
+      browser.password_text.set password
+    end
+
+    it 'lands on logged in page' do
+      browser.login_button.click
+      expect(browser.current_page.class).to eq InternetLoggedInPage
+    end
+
+    it 'can log back out' do
+      browser.login_button.click
+      browser.logout_button.click
+      expect(browser.current_url).to eq 'http://the-internet.herokuapp.com/login'
+    end
   end
 end

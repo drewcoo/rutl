@@ -30,14 +30,14 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 1.15'
-  spec.add_development_dependency 'coveralls'
-  spec.add_development_dependency 'drewcoo-cops'
-  spec.add_development_dependency 'gem-release'
+  spec.add_development_dependency 'coveralls', '~> 0.8'
+  spec.add_development_dependency 'drewcoo-cops', '~> 0.1'
+  spec.add_development_dependency 'gem-release', '~> 1.0'
   spec.add_development_dependency 'rake', '~> 12.3'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec_junit_formatter', '~> 0.3'
   spec.add_development_dependency 'rubocop', '~> 0.55'
-  spec.add_development_dependency 'rubocop-rspec'
+  spec.add_development_dependency 'rubocop-rspec', '~> 1.25'
   spec.add_development_dependency 'selenium-webdriver', '~> 3.12'
   spec.add_development_dependency 'webdrivers', '~> 3.0'
 end
