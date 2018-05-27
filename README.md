@@ -4,6 +4,7 @@
 [![CircleCI](https://circleci.com/gh/drewcoo/rutl.svg?style=shield)](https://circleci.com/gh/drewcoo/rutl)
 [![Coverage Status](https://coveralls.io/repos/github/drewcoo/rutl/badge.svg?branch=master)](https://coveralls.io/github/drewcoo/rutl?branch=master)
 [![Gem Version](https://badge.fury.io/rb/rutl.svg)](https://badge.fury.io/rb/rutl)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f95d69f6bdd149e697cf63e842f71600)](https://www.codacy.com/app/drewcoo/rutl?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=drewcoo/rutl&amp;utm_campaign=Badge_Grade)
 
 This is the Ruby Ui Test Library, or RUTL. Not to be confused with [The Rutles](https://www.rutles.org/).
 
