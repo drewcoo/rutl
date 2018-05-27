@@ -1,14 +1,16 @@
 inherit_from: .rubocop_todo.yml
 
 require: rubocop-rspec
+# drewcoo-cops has to go after rubocop-rspec because otherwise it diables
+# drewcoo-cops.
+# There are also a bunch of warnigs spewed about the RSpec cops listed
+# in the todo file so it looks like we're not playing well with rubocop-rspec
+# either.
+# Check this in for now and TODO: figure this out tomorrow.
+require: drewcoo-cops
 
 AllCops:
   DefaultFormatter: progress
   DisplayCopNames: true
   DisplayStyleGuide: true
   ExtraDetails: true
-
-# Should I just disable these?
-# Metrics/BlockLength
-# Metrics/MethodLength
-# Style/BracesAroundHashParameters

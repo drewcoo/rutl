@@ -14,7 +14,9 @@ module Utilities
       loop do
         result = lamb.call
         return result if result
+        # rubocop:disable Style/SleepCop
         sleep poll_sleep_time
+        # rubocop:enable Style/SleepCop
       end
     end
   end

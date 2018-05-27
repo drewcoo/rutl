@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 1.15'
   spec.add_development_dependency 'coveralls'
+  spec.add_development_dependency 'drewcoo-cops'
   spec.add_development_dependency 'gem-release'
   spec.add_development_dependency 'rake', '~> 12.3'
   spec.add_development_dependency 'rspec', '~> 3.0'
