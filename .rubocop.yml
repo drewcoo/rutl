@@ -6,7 +6,7 @@ require: rubocop-rspec
 # There are also a bunch of warnigs spewed about the RSpec cops listed
 # in the todo file so it looks like we're not playing well with rubocop-rspec
 # either.
-# Check this in for now and TODO: figure this out tomorrow.
+# Check this in for now and TODO: figure this out.
 require: drewcoo-cops
 
 AllCops:

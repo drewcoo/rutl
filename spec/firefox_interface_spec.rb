@@ -2,7 +2,7 @@ require 'webdrivers' if ENV['CIRCLECI'].nil?
 require 'spec_helper'
 require 'rutl/interface/firefox_interface'
 
-RSpec.describe FirefoxInterface do
+RSpec.describe FirefoxInterface, :slow do
   let(:browser) do
     Browser.new(page_object_dir: page_object_dir, interface_type: :firefox)
   end
@@ -14,8 +14,8 @@ RSpec.describe FirefoxInterface do
   context 'with text field' do
     it 'read/write' do
       username = 'foo'
-      browser.username_text.set username
-      expect(browser.username_text.get).to eq username
+      browser.username_text = username
+      expect(browser.username_text).to eq username
     end
   end
 end

@@ -6,8 +6,9 @@
 module ClickToChangeStateMixin
   def click
     this_css.click
-    interface.wait_for_transition(@destinations)
-    # TODO: Return what?
-    @destinations
+
+    # TODO: Is this part of the instance-stamping problem???
+    # returns the page it found
+    @context.interface.wait_for_transition(@context.destinations)
   end
 end

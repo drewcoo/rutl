@@ -1,40 +1,51 @@
+require 'rutl/interface/elements/element_context'
+
 #
 # This fakes all page elements when used with the null driver.
 # It's a dirty way to avoid modeling all of what a driver talks to.
 #
 class NullDriverPageElement
-  attr_accessor :string
-  attr_reader :selector_type, :selector
+  attr_accessor :context
 
-  attr_accessor :interface
-  attr_accessor :destinations
-
-  def initialize(selector_type, selector)
-    # :css, selector
-    @selector_type = selector_type
-    @selector = selector
+  def self.clear_variables
+    @@variables = {}
   end
 
+  def initialize(context, _type, location)
+    @@variables ||= {}
+    @context = context
+    @location = location
+  end
+
+  # @@string is a class variable because this framework creates new instances
+  # of each element every time it accesses them. This is good behavior by
+  # default because pages could change underneath us.
+  # For text fields in the null browser, though, we want to preserve the values
+  # across calls, letting us write and then read.
   def send_keys(string)
-    @string = string
+    init = @@variables[@location] || ''
+    @@variables[@location] = init + string
   end
 
   def attribute(attr)
     case attr.to_sym
     when :value
-      @string
+      @@variables[@location]
     else
       raise ArgumentError, "Attribute unknown: #{attr}"
     end
   end
 
-  # Return simple strings for checks against the NullDriver instead of
-  # having to use some heavyweight UI.
   def clear
-    'clear'
+    @@variables[@location] = ''
+  end
+
+  def this_css
+    self
   end
 
   def click
-    'click'
+    # nop
+    # Called by ClickToChangeStateMixin like Selenium driver.click
   end
 end

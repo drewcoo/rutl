@@ -1,30 +1,10 @@
 require 'rutl/interface/elements/base_element'
+require 'rutl/interface/elements/string_reader_writer_mixin.rb'
 
 #
 # I'm using the text element for all text-like things. Passowrds, too.
+# TODO: Also have a reader only class with StringReaderMixin for labels?
 #
 class Text < BaseElement
-  def initialize(selectors = {}, destinations = [])
-    super
-  end
-
-  def clear
-    this_css.clear
-  end
-
-  def text
-    get
-  end
-
-  def get
-    this_css.attribute(:value)
-  end
-
-  def text=(string)
-    set(string)
-  end
-
-  def set(string)
-    this_css.send_keys(string)
-  end
+  include StringReaderWriterMixin
 end

@@ -4,12 +4,11 @@ require 'rutl/interface/base_interface'
 # Interface-level code for fake browser.
 #
 class NullInterface < BaseInterface
-  @variables = []
-  attr_accessor :variables
-
-  def initialize(pages:)
-    @driver = NullDriver.new
-    @driver.interface = @interface
+  def initialize
+    context = ElementContext.new(destinations: nil,
+                                 interface: self,
+                                 selectors: [])
+    @driver = NullDriver.new(context)
     super
   end
 
@@ -19,11 +18,14 @@ class NullInterface < BaseInterface
 
   def current_page
     # Default to @pages.first if not set?
-    # A browser can alwasy check its current URL but the null driver can't.
-    @current_page || @pages.first
+    # A browser can always check its current URL but the null driver can't.
+    @current_page ||= @pages.first
   end
 
   def wait_for_transition(destinations)
-    @current_page = find_page(destinations.first)
+    # TODO: Setting @current page didn't do it beacause that set
+    # context.interface.current_page and we wanted this in the browser.
+    @current_page = destinations.first.new(self)
+    $browser.current_page = @current_page
   end
 end

@@ -7,46 +7,27 @@ require 'rutl/utilities'
 class BaseInterface
   include Utilities
 
-  def current_url
-    current_page.url
-  end
-
-  attr_reader :pages
   attr_accessor :driver
-  attr_accessor :interface
+  attr_accessor :pages
 
-  def initialize(pages:)
-    @pages = pages
-    raise 'Child classes must implement @driver.' unless defined? @driver
-    @pages.each { |p| p.driver = @driver }
+  def initialize
+    raise 'Child interface class must set @driver.' if @driver.nil?
   end
 
-  def goto(input)
-    # TODO: KLUDGY. Fix. Modifier if usage bombs here. *shrug*
-    @driver.interface = @interface if @interface.class.to_s == 'NullInterface'
-    input = find_page(input) unless input.methods.include?(:url)
-
-    @driver.navigate.to input.url
+  def goto(page)
+    @driver.navigate.to find_page(page).url
   end
 
   def current_page
-    raise 'OVERRIDE IN CHILDREN'
+    raise 'define in child classes'
   end
 
   def method_missing(method, *args, &block)
-    result = if args.empty?
-               current_page.send(method)
-             else
-               current_page.send(method, *args, &block)
-             end
-    raise interface.to_s if interface.nil?
-    raise result.to_s unless defined? result # result.interface
-    begin
-      result.interface = interface
-    rescue NoMethodError
-      raise NoMethodError, "METHOD NOT FOUND: #{method}"
+    if args.empty?
+      current_page.send(method)
+    else
+      current_page.send(method, *args, &block)
     end
-    result
   end
 
   # TODO: Is this needed? I not only find the page but also make sure the
@@ -54,21 +35,18 @@ class BaseInterface
   def find_state(target_states)
     target_states.each do |state|
       next unless state.url == current_page.url
-      page = find_page(state, true)
-      return page if page.loaded?
+      page = find_page(state)
+      return page if page.loaded?(@driver)
     end
-    raise current_page.to_s if current_page.class == InternetLoggedInPage
     false
   end
 
-  def find_page(page, raise_on_fail = false)
+  def find_page(page)
     @pages.each do |p|
-      # page is a Page class
       return p if page?(page) && p.class == page
-      # or a String, possibly URL
       return p if String == page.class && page == p.url
     end
-    raise "Page \"#{page}\" not found in pages #{@pages}" if raise_on_fail
+    raise "Page \"#{page}\" not found in pages #{@pages}"
   end
 
   def wait_for_transition(target_states)
@@ -86,6 +64,7 @@ class BaseInterface
 
   def quit
     @driver.quit
-    @pages = []
+    # Maybe I'm reusing pages from @pages?
+    # @pages = []
   end
 end

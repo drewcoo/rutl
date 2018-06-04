@@ -4,10 +4,8 @@ require 'rutl/interface/base_interface'
 #
 # Small interface for Chrome browser.
 #
-# TODO: Probably the current_page() implementation should move up to base.
-#
 class FirefoxInterface < BaseInterface
-  def initialize(pages:)
+  def initialize
     @logged_in = true
     options = Selenium::WebDriver::Firefox::Options.new
     options.add_argument('--ignore-certificate-errors')
@@ -20,7 +18,7 @@ class FirefoxInterface < BaseInterface
 
   def current_page
     url = @driver.current_url
-    page = find_page(url, true)
+    page = find_page(url)
     raise "PAGE NOT FOUND: #{url}, PAGES: #{@pages}" unless page
     page
   end

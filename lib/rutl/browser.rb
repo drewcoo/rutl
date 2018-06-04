@@ -9,23 +9,26 @@ require 'rutl/base_page'
 class Browser
   include Utilities
 
-  def initialize(interface_type: :none, page_object_dir: 'spec/pages')
-    @pages = load_pages(page_object_dir: page_object_dir)
-    load_interface(type: interface_type)
+  attr_reader :interface
+
+  def initialize(interface_type:, page_object_dir: 'spec/pages')
+    # This is kind of evil. Figure out how to ditch the $ variable.
+    $browser = self
+    @interface = nil
+    @interface = load_interface(interface_type)
+    @interface.pages = load_pages(dir: page_object_dir)
   end
 
-  def load_interface(type: :none)
-    pages = @pages
+  def load_interface(type)
     require "rutl/interface/#{type}_interface"
     klass = "#{type.to_s.capitalize}Interface"
-    @interface = Object.const_get(klass).new(pages: pages)
-    @interface.interface = @interface
+    Object.const_get(klass).new
   end
 
   # Ugly. Requires files for page objects. Returns array of class names to load.
-  def require_pages(page_object_dir: 'spec/pages')
+  def require_pages(dir: 'spec/pages')
     names = []
-    Dir["#{page_object_dir}/*"].each do |file|
+    Dir["#{dir}/*"].each do |file|
       require "rutl/../../#{file}"
       File.open(file).each do |line|
         bingo = line.match(/class (.*) < BasePage/)
@@ -37,26 +40,19 @@ class Browser
 
   def load_pages(*)
     pages = []
-    names = require_pages
-    names.each do |klass|
+    require_pages.each do |klass|
       # Don't have @interface set yet.
       # That would have been the param to new, :interface.
-      pages << Object.const_get(klass).new
+      pages << Object.const_get(klass).new(@interface)
     end
     pages
   end
 
   def method_missing(method, *args, &block)
-    result = if args.empty?
-               @interface.send(method)
-             else
-               @interface.send(method, *args, &block)
-             end
-    if result.class == Array && (result[0].class.ancestors.include?(BasePage) ||
-                                 result[0].class == Exception)
-      wait_for_transition(result)
+    if args.empty?
+      @interface.send(method)
     else
-      result
+      @interface.send(method, *args, &block)
     end
   end
 

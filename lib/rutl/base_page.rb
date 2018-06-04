@@ -17,50 +17,60 @@ class BasePage
     self.class.url
   end
 
-  @@children = []
-  def self.children
-    @@children
-  end
+  @@loaded_pages = []
 
-  attr_accessor :driver
-
-  # TODO: DO I REALLY WANT TO PASS IN DRIVER LIKE THAT?
-  def initialize
-    # Call a class's layout method the first time it's loaded
-    # and put the class name in a list of children, which is a
-    # list of all actual page objects in this case.
-    return if @@children.include?(self.class)
+  def initialize(interface)
+    @interface = interface
+    # Dirty trick because we're loading all of page classes from files and then
+    # initializing them, calling their layout methods to do magic.
+    # The base_page class knows what pages are loaded.
+    return if @@loaded_pages.include?(self.class)
     layout
-    @@children << self.class
+    @@loaded_pages << self.class
   end
 
-  def loaded?
-    @url = @driver.current_url
+  # Written by Browser and only used internally.
+  attr_writer :interface
+
+  def loaded?(driver)
+    url == driver.current_url
   end
 
-  # BUGBUG: This creates a new element instance whenever it's called.
+  # Dynamically add a method, :<name> (or :<name>= if setter)
+  # to the current class where that method creates an instance
+  # of klass.
+  # context is an ElementContext
+  def add_method(context:, klass:, name:, setter: false)
+    name = "#{name}_#{klass.downcase}"
+    constant = Module.const_get(klass.capitalize)
+    self.class.class_exec do
+      if setter
+        define_method("#{name}=") do |value|
+          constant.new(context, value)
+        end
+      else
+        define_method(name) do
+          constant.new(context)
+        end
+      end
+    end
+  end
+
+  # This creates a new element instance whenever it's called.
   # Because of that we can't keep state in any element objects.
-  # Is that actually a good thing, maybe?
-
+  # That seems like a good thing, actually.
   # Called by layout method on pages.
   def method_missing(element, *args, &_block)
-    name, selector, rest = args
-    name = "#{name}_#{element.downcase}"
-
+    name, selectors, rest = args
+    context = ElementContext.new(destinations: rest,
+                                 interface: @interface,
+                                 selectors: selectors)
     case element
     when /button/, /checkbox/, /link/
-      self.class.class_exec do
-        foo = Module.const_get(element.capitalize).new(selector, rest)
-        define_method(name) do
-          foo
-        end
-      end
+      add_method(name: name, context: context, klass: element)
     when /text/
-      self.class.class_exec do
-        define_method(name) do
-          Module.const_get(element.capitalize).new(selector, rest)
-        end
-      end
+      add_method(name: name, context: context, klass: element)
+      add_method(name: name, context: context, klass: element, setter: true)
     else
       # TODO: replace with a super call. This is useful for debugging for now.
       raise "#{element} NOT FOUND WITH ARGS #{args}!!!"
@@ -78,7 +88,7 @@ class BasePage
     else
       # I think it's good to raise but change the message.
       raise 'Drew, you hit this most often when checking current page ' \
-            'rather than current page class'
+            "rather than current page class:\n\n #{args}"
       # I think I want to raise instead of returningn false.
     end
   end
