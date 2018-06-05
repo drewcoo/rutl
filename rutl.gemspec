@@ -9,9 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['drewcoo@gmail.com']
 
   spec.summary       = 'Ruby Ui Test Library'
-  spec.description   = 'DANGER!!! DO NOT USE YET!!! This is a UI library ' \
-                       'under construction and only name-squatting for the ' \
-                       'moment.'
+  spec.description   = 'This is a UI library under construction at the moment.'
   spec.homepage      = 'https://github.com/drewcoo/rutl'
   spec.license       = 'MIT'
 
