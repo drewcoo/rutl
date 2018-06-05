@@ -30,7 +30,7 @@ class NullDriverPageElement
   def attribute(attr)
     case attr.to_sym
     when :value
-      @@variables[@location]
+      @@variables[@location] || ''
     else
       raise ArgumentError, "Attribute unknown: #{attr}"
     end

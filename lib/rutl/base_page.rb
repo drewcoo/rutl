@@ -9,6 +9,7 @@ class BasePage
   # BUGBUG: Kludgy. What do I really want to do here?
   # Make it easy to define a page's default url and
   # also matchers for page urls for pages with variable urls?
+  # rubocop:disable Style/TrivialAccessors
   def self.url
     @url
   end
@@ -16,6 +17,7 @@ class BasePage
   def url
     self.class.url
   end
+  # rubocop:enable Style/TrivialAccessors
 
   @@loaded_pages = []
 
@@ -29,6 +31,12 @@ class BasePage
     @@loaded_pages << self.class
   end
 
+  def go_to_here
+    # Ovveride this in base page to have something more
+    # complicated than this.
+    @interface.driver.navigate.to(url)
+  end
+
   # Written by Browser and only used internally.
   attr_writer :interface
 
@@ -40,6 +48,9 @@ class BasePage
   # to the current class where that method creates an instance
   # of klass.
   # context is an ElementContext
+  #
+  # As it is, this seems silly to break into pieces for Rubocop.
+  # rubocop:disable Metrics/MethodLength
   def add_method(context:, klass:, name:, setter: false)
     name = "#{name}_#{klass.downcase}"
     constant = Module.const_get(klass.capitalize)
@@ -55,11 +66,15 @@ class BasePage
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   # This creates a new element instance whenever it's called.
   # Because of that we can't keep state in any element objects.
   # That seems like a good thing, actually.
   # Called by layout method on pages.
+  #
+  # Hard to make shorter.
+  # rubocop:disable Metrics/MethodLength
   def method_missing(element, *args, &_block)
     name, selectors, rest = args
     context = ElementContext.new(destinations: rest,
@@ -76,6 +91,7 @@ class BasePage
       raise "#{element} NOT FOUND WITH ARGS #{args}!!!"
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def respond_to_missing?(*args)
     # Is this right at all???

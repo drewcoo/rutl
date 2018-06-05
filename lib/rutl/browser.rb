@@ -11,12 +11,15 @@ class Browser
 
   attr_reader :interface
 
-  def initialize(interface_type:, page_object_dir: 'spec/pages')
+  def initialize(type:, rutl_pages: RUTL::PAGES || ENV['RUTL_PAGES'])
+    if rutl_pages.nil? || rutl_pages.empty?
+      raise "Set RUTL::PAGES or ENV['RUTL_PAGES'] or pass dir as rutl_pages:"
+    end
     # This is kind of evil. Figure out how to ditch the $ variable.
     $browser = self
     @interface = nil
-    @interface = load_interface(interface_type)
-    @interface.pages = load_pages(dir: page_object_dir)
+    @interface = load_interface(type)
+    @interface.pages = load_pages(dir: rutl_pages)
   end
 
   def load_interface(type)

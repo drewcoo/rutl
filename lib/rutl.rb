@@ -6,5 +6,8 @@ require 'rutl/version'
 # desktop UI testing, turning the UI into an API via its DSL.
 #
 module RUTL
-  # Your code goes here...
+  # Should define RUTL::PAGES directory for your code
+  # or set ENV['RUTL_PAGES']
+  # or Browser intialize will raise.
+  PAGES = nil
 end

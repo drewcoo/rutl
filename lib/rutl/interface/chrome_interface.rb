@@ -5,6 +5,7 @@ require 'rutl/interface/base_interface'
 # Small interface for Chrome browser.
 #
 class ChromeInterface < BaseInterface
+  # rubocop:disable Metrics/MethodLength
   def initialize
     @logged_in = true
     options = Selenium::WebDriver::Chrome::Options.new
@@ -20,6 +21,7 @@ class ChromeInterface < BaseInterface
     @driver = Selenium::WebDriver.for :chrome, options: options
     super
   end
+  # rubocop:enable Metrics/MethodLength
 
   def current_page
     url = @driver.current_url

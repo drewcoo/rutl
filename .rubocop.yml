@@ -1,3 +1,6 @@
+# The exclusions here and in source code are intentional decisions to not
+# follow Rubocop's advice. Anything that should be fiex but isn't is in
+# .rubocop_todo.yml
 inherit_from: .rubocop_todo.yml
 
 require: rubocop-rspec
@@ -14,3 +17,28 @@ AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
   ExtraDetails: true
+
+# Metrics/BlockLength, Metrics/MethodLength
+# don't apply to the spec files. They naturally have long swaths of code.
+# And the gemspec is special.
+Metrics/BlockLength:
+  Exclude:
+    - 'rutl.gemspec'
+    - 'spec/*_spec.rb'
+Metrics/MethodLength:
+  Exclude:
+    - 'spec/*_spec.rb'
+
+# TODO: Change this setting? Ideally, I should force braces on the *Page files.
+# But should think about this first.
+Style/BracesAroundHashParameters:
+  Exclude:
+    - 'spec/pages/**/*'
+
+# NullDriverPageElement plays dirty tricks with @@variables to simulate
+# longer-lived data sources.
+# And BasePage does @@loaded_pages.
+Style/ClassVars:
+  Exclude:
+    - 'lib/rutl/driver/null_driver_page_element.rb'
+    - 'lib/rutl/base_page.rb'

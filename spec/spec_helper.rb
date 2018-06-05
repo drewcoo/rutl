@@ -2,27 +2,10 @@ require 'coveralls'
 Coveralls.wear!
 
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
-require 'rutl'
+require 'rspec/default_rspec_to_browser'
+require 'rspec/rutl_matchers'
 
-#
-# Currently not in use.
-# Should go in its own file, too.
-#
-module DefaultRspecToBrowser
-  def method_missing(method, *args, &block)
-    browser.send(method, args, block)
-  rescue ArgumentError
-    browser.send(method)
-  end
-
-  def respond_to_missing?(method)
-    browser.respond_to?(method)
-  end
-end
-
-RSpec.shared_context 'with globals' do
-  let(:page_object_dir) { 'spec/pages' }
-end
+RUTL::PAGES = 'spec/pages'.freeze
 
 RSpec.configure do |config|
   config.after do
@@ -34,8 +17,7 @@ RSpec.configure do |config|
   config.disable_monkey_patching!
   config.fail_fast = 0
   config.filter_run focus: true
-  # config.include DefaultRspecToBrowser
-  config.include_context 'with globals'
+  config.include DefaultRspecToBrowser
   config.order = :random
   config.run_all_when_everything_filtered = true
 end

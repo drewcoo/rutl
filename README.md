@@ -17,13 +17,12 @@ Framework goals:
 * Secondary-ish goal: Make fake browser to test the framework faster.
 * Tertiary-ish: Stop calling browser "fake" because I'm sick of that word. Null!
 
+
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    ```ruby
-    gem 'rutl'
-    ```
+    $ gem 'rutl'
 
 And then execute:
 
@@ -33,35 +32,158 @@ Or install it yourself as:
 
     $ gem install rutl
 
+
 ## Usage
 
-TODO: Write usage instructions here
+### Page Objects
+Page objects are a common paradigm in browser testing. This framework uses the
+following convention for page classes:
+* must inherit from Rutl::BasePage (require rutl/base_page)
+* by default, the class should follow the naming convention ending with "Page" (optional?)
+* must have @url defined per page
+* must have a layout method such that
+ * field types are defined by methods button, checkbox, link, and text (more tbd?)
+ * field type is followed by name as a symbol (add support for string? tbd)
+ * then a comma
+ * hash of selectors
+   * key is selector type as symbol (currently only :css)
+   * value is string path
+ * optional comma if there are destinations or error conditions
+ * optional array of destination page or error condition classes if clicking the element causes transition
+* loaded? method returning boolean to determine when page is loaded
+  * defaults to just checking url; overide as needed
+* go_to_here (better name?) method to navigate to the page if we can't just go to the url
+* your own methods because it's a plain ol' Ruby class
+
+
+ Example:
+
+```ruby
+    require 'rutl/base_page'
+
+    class MyPage < BasePage
+      @url = 'https://url.string.com/page.html'
+
+      def layout
+        text :username, { css: 'some_css_input#username' }
+        text :password, { css: 'css#to_password_field' }
+        button :log_me_in, { css: 'button#login' }, [SomeOtherPage, LoginFailurePage]
+        link :refresh, { css: 'link_css_to_refresh_page' }, [MyPage]
+      end
+    end
+```
+
+And here's some example RSpec:
+
+```ruby
+    require 'spec_helper'
+
+    RSpec.describe MyTest do
+      let!(:browser) do
+        Browser.new(type: :firefox)
+      end
+
+      it 'logs in' do
+        goto(MyPage)
+        username_text = 'drew'
+        password_text = 's3cr3T!'
+        log_me_in_button.click
+        expect(current_page).to be_page(SomeOtherPage)
+      end
+    end
+```
+
+The framework loads and manages all the pages. You just have to interact with
+what you can see on whatever page you're on. Let's walk through this.
+* TBD: Does RUTL come with browser drivers? Browsers? What needs to be added?
+* We're using let! because:
+  * it forces instantiation of "browser" every time
+  * we include DefaultRspecToBrowser, defaulting missing methods to "browser"
+  * thus the terse lines that follow
+* We didn't pass named param rutl_pages: to Browser so we must have done one of:
+  * setting environment variable RUTL_PAGES
+  * setting RUTL::PAGES
+* Browser's type: parameter currently supports :chrome, :firefox, and :null.
+* The first call to the browser is goto because it wasn't on a page.
+* Auto-created fields are named "#{friendly_name}_#{field_type}".
+* Getting and setting text fields is as easy as calling a String.
+* When we call click, the framework polls for a next state.
+* We verify that the current page is an instance of the intended page.
+  * Also note here that we have a matcher be_page which matches a page class.
+
+### RSpec Goodies
+
+The tests here are in RSpec and use some conventions that may be common if your tests are also RSpec.
+
+#### DefaultRspecToBrowser
+This is a module that allows us to skip writing `browser.` in front of everything.
+1. We assume that `browser` is defined.
+2. On method_missing, we try to send the method to `browser`.
+
+It lets us turn this:
+```
+    browser.field1_text = 'foo'
+    browser.ok_button.click
+    expect(browser.current_page).to eq(NextPage)
+```
+into this:
+```
+    field1_text = 'foo'
+    ok_button.click
+    expect(current_page).to eq(NextPage)
+```
+which means less boilerplate and it's easier to follow.
+
+To use it:
+```
+    require 'rutl/rspec/default_rspec_to_browser'
+```
+
+#### RSpec Matcher
+
+Currently the only has the `be_page` matcher.
+
+It lets us turn this:
+```
+    expect(browser.current_page).to be_instance_of(MyPage)
+```
+into this:
+```
+    expect(browser.current_page).to be_page(MyPage)
+```
+Both are acceptable but the second is more readable.
+
+To use it:
+```
+    require 'rutl/rspec/rutl_matchers'
+```
+
 
 ## Roadmap
 Coming up soon in almost no order:
-* A test framework should have better tests. Goes with next bullet.
-* Flesh out null interface/driver. Make them do what a real browser does.
-* Restructure tests to handle fake browsers and real browsers. Same structure?
-* Make this work with pages files in some other location so we can use it as a gem.
+* A test framework should have better tests.
 * Put more info in this readme.
 * Take screenshots.
 * Diff screenshots. Make this smart so we don't have to be experts.
+* Move bugs and would-be features to Github Issues instead of this readme and scattered through the code.
+* Make the framework make it easier to spot bugs in pages. Focus on exception-handling?
 * The webdriver gem should already include InternetExplorerDriver. Maybe run tests on AppVeyor.
 * Other browser drivers? Look at https://github.com/fnando/browser
 * Get this working with Appium:
   * Make TK app to test on desktops and test it.
-    * Can Ruby TK create accesible apps?
+    * Can Ruby TK create accesible apps? Not in the simple demos.
   * Make Android example app and get this to work.
     * Corboba?
   * Same with iPhone.
     * Same Cordoba test app?
 * Others?
-* Spidering page object maker.
+* Spidering page object maker. Or selector checker/fixer?
 * Possibly pair the null browser with auto-generated pages for ______?
 * Call rutl.rb properly.
 * Optional install of test resources based on machine type.
 * Instructions about machine installs to help people using gem.
 * Pair with some kind of VM, Docker container, AMI, or something.
+
 
 ## Development
 
@@ -75,9 +197,12 @@ Set everything up:
 Great! You've checked out the code, installed everything and run the tests.
 
 Rubocop. I still have to tweak what I want it to complain about.
-    `bundle exec rubocop`
+```ruby
+    bundle exec rubocop
+```
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
 
 ## Contributing
 

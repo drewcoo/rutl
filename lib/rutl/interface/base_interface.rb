@@ -15,7 +15,8 @@ class BaseInterface
   end
 
   def goto(page)
-    @driver.navigate.to find_page(page).url
+    raise 'expect Page class' unless page.ancestors.include?(BasePage)
+    find_page(page).go_to_here
   end
 
   def current_page
