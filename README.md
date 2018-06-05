@@ -176,10 +176,10 @@ Coming up soon in almost no order:
     * Corboba?
   * Same with iPhone.
     * Same Cordoba test app?
+* Documentation. RDoc?
 * Others?
 * Spidering page object maker. Or selector checker/fixer?
 * Possibly pair the null browser with auto-generated pages for ______?
-* Call rutl.rb properly.
 * Optional install of test resources based on machine type.
 * Instructions about machine installs to help people using gem.
 * Pair with some kind of VM, Docker container, AMI, or something.
