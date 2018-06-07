@@ -2,9 +2,9 @@ require 'webdrivers' if ENV['CIRCLECI'].nil?
 require 'spec_helper'
 require 'rutl/interface/firefox_interface'
 
-RSpec.describe FirefoxInterface, :slow do
+RSpec.describe RUTL::FirefoxInterface, :slow do
   let!(:browser) do
-    Browser.new(type: :firefox)
+    RUTL::Browser.new(type: :firefox)
   end
 
   before do

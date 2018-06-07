@@ -1,6 +1,6 @@
-require 'rutl/base_page'
+require 'rutl/page'
 
-class InternetLoggedInPage < BasePage
+class InternetLoggedInPage < RUTL::Page
   @url = 'http://the-internet.herokuapp.com/secure'
 
   def layout

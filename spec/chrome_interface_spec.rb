@@ -2,9 +2,9 @@ require 'webdrivers' if ENV['CIRCLECI'].nil?
 require 'spec_helper'
 require 'rutl/interface/chrome_interface'
 
-RSpec.describe ChromeInterface, :slow do
+RSpec.describe RUTL::ChromeInterface, :slow do
   let!(:browser) do
-    Browser.new(type: :chrome)
+    RUTL::Browser.new(type: :chrome)
   end
 
   before do

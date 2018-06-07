@@ -1,6 +1,6 @@
-require 'rutl/base_page'
+require 'rutl/page'
 
-class Page2 < BasePage
+class Page2 < RUTL::Page
   @url = 'http://somesite.org/page2.html'
 
   def layout

@@ -33,13 +33,9 @@ module Utilities
   end
 
   def page?(checkme)
-    checkme.ancestors.include?(BasePage)
+    checkme.ancestors.include?(RUTL::Page)
   rescue NoMethodError
     # This isn't a even a class. It's no page!
     false
-  end
-
-  def raise_if_not_page(page)
-    raise "NOT A PAGE: #{page}. Ancestors: #{page.ancestors}" unless page?(page)
   end
 end

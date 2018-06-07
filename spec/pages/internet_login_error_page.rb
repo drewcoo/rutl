@@ -1,6 +1,6 @@
-require 'rutl/base_page'
+require 'rutl/page'
 
-class InternetLoginErrorPage < BasePage
+class InternetLoginErrorPage < RUTL::Page
   @url = 'http://the-internet.herokuapp.com/login'
 
   def layout

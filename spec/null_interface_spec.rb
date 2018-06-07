@@ -1,13 +1,13 @@
 require 'spec_helper'
 require 'rutl/interface/null_interface'
 
-RSpec.describe NullInterface, :fast do
+RSpec.describe RUTL::NullInterface, :fast do
   let!(:browser) do
-    Browser.new(type: :null)
+    RUTL::Browser.new(type: :null)
   end
 
   let(:browser2) do
-    Browser.new(type: :null)
+    RUTL::Browser.new(type: :null)
   end
 
   before do
