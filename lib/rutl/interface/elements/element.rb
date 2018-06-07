@@ -1,7 +1,7 @@
 #
 # Page elements. Base class.
 #
-class BaseElement
+class Element
   attr_accessor :context
 
   def initialize(element_context)
@@ -20,5 +20,23 @@ class BaseElement
 
   def this_css
     @context.find_element(:css)
+  end
+
+  def exists?
+    @context.find_element(:css)
+  rescue Selenium::WebDriver::Error::NoSuchElementError
+    false
+  end
+
+  def method_missing(method, *args, &block)
+    if args.empty?
+      this_css.send(method)
+    else
+      this_css.send(method, *args, &block)
+    end
+  end
+
+  def respond_to_missing?(*args)
+    this_css.respond_to?(*args)
   end
 end

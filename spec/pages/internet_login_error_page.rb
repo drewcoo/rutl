@@ -1,6 +1,6 @@
 require 'rutl/base_page'
 
-class InternetLoginPage < BasePage
+class InternetLoginErrorPage < BasePage
   @url = 'http://the-internet.herokuapp.com/login'
 
   def layout
@@ -19,6 +19,6 @@ class InternetLoginPage < BasePage
   end
 
   def loaded?
-    url == @interface.driver.current_url && !error_banner_element.exists?
+    url == @interface.driver.current_url && error_banner_element.exists?
   end
 end

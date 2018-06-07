@@ -1,8 +1,8 @@
-require 'rutl/interface/elements/base_element'
+require 'rutl/interface/elements/element'
 
 #
 # Yes, a checkbox.
 #
-class Checkbox < BaseElement
+class Checkbox < Element
   # get and set? toggle?
 end

@@ -40,8 +40,8 @@ class BasePage
   # Written by Browser and only used internally.
   attr_writer :interface
 
-  def loaded?(driver)
-    url == driver.current_url
+  def loaded?
+    url == @interface.driver.current_url
   end
 
   # Dynamically add a method, :<name> (or :<name>= if setter)
@@ -81,7 +81,7 @@ class BasePage
                                  interface: @interface,
                                  selectors: selectors)
     case element
-    when /button/, /checkbox/, /link/
+    when /button/, /checkbox/, /element/, /link/
       add_method(name: name, context: context, klass: element)
     when /text/
       add_method(name: name, context: context, klass: element)
@@ -96,7 +96,7 @@ class BasePage
   def respond_to_missing?(*args)
     # Is this right at all???
     case args[0].to_s
-    when /button/, /checkbox/, /link/, /text/,
+    when /button/, /checkbox/, /element/, /link/, /text/,
          'driver', 'url', 'children', 'loaded?'
       true
     when 'ok_link'

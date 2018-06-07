@@ -169,8 +169,7 @@ your tests screenshot anyway, just less magic.
 
 ## Roadmap
 Coming up soon in almost no order:
-* Handle error pages/partials.
-* Auto-screenshot on errors. Error destinations. Navigation errors. Unexpected exceptions?
+* Handle other errors. Auto-screenshot on errors. Navigation errors. Unexpected exceptions?
 * A test framework should have better tests.
 * Diff screenshots. Make this smart so we don't have to be experts.
 * Put more info in this readme.

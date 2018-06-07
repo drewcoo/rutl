@@ -42,3 +42,10 @@ Style/ClassVars:
   Exclude:
     - 'lib/rutl/driver/null_driver_page_element.rb'
     - 'lib/rutl/base_page.rb'
+
+# Rubocop flags lots of things as useless assignment when they're actually
+# magic methods. Maybe this means I'm not handling respond_to_missing
+# correctly. In fact, that seems likely.
+Lint/UselessAssignment:
+  Exclude:
+    - 'spec/*_spec.rb'

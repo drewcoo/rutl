@@ -43,7 +43,7 @@ class BaseInterface
     target_states.each do |state|
       next unless state.url == current_page.url
       page = find_page(state)
-      return page if page.loaded?(@driver)
+      return page if page.loaded?
     end
     false
   end

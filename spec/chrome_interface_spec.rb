@@ -34,12 +34,24 @@ RSpec.describe ChromeInterface, :slow do
     end
   end
 
+  it 'fails bad login' do
+    username_text = 'tomsmith'
+    password_text = 'foo'
+    login_button.click
+    # This test site actually has different displayed for invalid user and
+    # password. That is an informations leak thus a bug and I'd rather not
+    # contribute to someone else "testing the bug in" so this only tests for
+    # there being an error and not the type of error.
+    expect(current_page).to be_page(InternetLoginErrorPage)
+  end
+
   context 'when log in' do
-    before do
-      username = 'tomsmith'
-      password = 'SuperSecretPassword!'
-      browser.username_text = username
-      browser.password_text = password
+    before(:each) do
+      # TODO: browser doesn't have focus and get username_text unless
+      # I explicitly pass browser.username_text here.
+      # Why?
+      browser.username_text = 'tomsmith'
+      browser.password_text = 'SuperSecretPassword!'
     end
 
     it 'lands on logged in page' do

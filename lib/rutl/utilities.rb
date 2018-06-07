@@ -4,7 +4,7 @@
 module Utilities
   require 'timeout'
 
-  POLL_SLEEP_TIME = 0.1
+  POLL_SLEEP_TIME = 0.01
   DEFAULT_TIMEOUT = 5
 
   # The lambda passed to await should return false if thing not found

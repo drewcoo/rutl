@@ -40,11 +40,7 @@ RSpec.describe NullInterface, :fast do
   end
 
   it 'do a thing' do
-    # Because of my "invisible browser" magic I will surely hit more of these.
-    # I should figure out what to do rather than disabling each check.
-    # rubocop:disable Lint/UselessAssignment
     password_text = 'am i texting'
-    # rubocop:enable Lint/UselessAssignment
     ok_link.click
     expect(okay_text.to_s).to eq ''
   end

@@ -9,13 +9,13 @@ module RUTL
   # Should define RUTL::PAGES directory for your code
   # or set ENV['RUTL_PAGES']
   # or Browser intialize will raise.
-  PAGES = nil
+  # PAGES = nil
 
   # If this RUTL::SCREENSHOT_DIR or ENV['SCREENSHOT_DIR']
   # or Browser initialize is set, we take screenshots.
-  SCREENSHOTS = nil
+  # SCREENSHOTS = nil
 
   # This one is for diffing against.
   # RUTL::KNOWN_GOOD_SCREENSHOTS
-  REFERENCE_SCREENSHOTS = nil
+  # REFERENCE_SCREENSHOTS = nil
 end
