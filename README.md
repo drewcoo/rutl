@@ -158,14 +158,22 @@ To use it:
     require 'rutl/rspec/rutl_matchers'
 ```
 
+### Auto-screenshotting
+
+If you have RUTL::SCREENSHOTS or ENV['SCREENSHOTS'] set to a directory, RUTL
+will automatically take screenshots on page transitions.
+If you're using RSpec, they'll be automatically named something based on the
+RSpec description with an auto-incrementing number.
+If you're not using RSpec, that's not terribly useful but you can always have
+your tests screenshot anyway, just less magic.
 
 ## Roadmap
 Coming up soon in almost no order:
-* A test framework should have better tests.
-* Put more info in this readme.
-* Take screenshots.
-* Diff screenshots. Make this smart so we don't have to be experts.
 * Handle error pages/partials.
+* Auto-screenshot on errors. Error destinations. Navigation errors. Unexpected exceptions?
+* A test framework should have better tests.
+* Diff screenshots. Make this smart so we don't have to be experts.
+* Put more info in this readme.
 * Move bugs and would-be features to Github Issues instead of this readme and scattered through the code.
 * Make the framework make it easier to spot bugs in pages. Focus on exception-handling?
 * The webdriver gem should already include InternetExplorerDriver. Maybe run tests on AppVeyor.
