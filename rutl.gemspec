@@ -27,15 +27,32 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  # These are *some* webdriver-related dependencies. They don't include
+  # brwosers. Or anything for non-browssr testing. Or image diffing code.
+  # Maybe all browser stuff should be its own sub-gem.
+  spec.add_dependency 'selenium-webdriver', '~> 3.12'
+  # webdrivers gem can pull down these webdrivers: chromedriver, geckodriver,
+  # IEDriverServer and MicrosoftWebDriver. It does not install the browser.
+  #
+  # CitcleCI can't use this to install webdrivers.
+  # Works locally and with Travis.
+  spec.add_dependency 'webdrivers', '~> 3.0'
+
+  # Dependencies for development only.
   spec.add_development_dependency 'bundler', '~> 1.15'
-  spec.add_development_dependency 'coveralls', '~> 0.8'
-  spec.add_development_dependency 'drewcoo-cops', '~> 0.1'
   spec.add_development_dependency 'gem-release', '~> 1.0'
   spec.add_development_dependency 'rake', '~> 12.3'
+
+  # Code coverage service.
+  spec.add_development_dependency 'coveralls', '~> 0.8'
+
+  # RSpec is used to test the RUTL. It might not be the test engine chosen
+  # by the person using RUTL.
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec_junit_formatter', '~> 0.3'
+
+  # Linting with RuboCop
+  spec.add_development_dependency 'drewcoo-cops', '~> 0.1'
   spec.add_development_dependency 'rubocop', '~> 0.55'
   spec.add_development_dependency 'rubocop-rspec', '~> 1.25'
-  spec.add_development_dependency 'selenium-webdriver', '~> 3.12'
-  spec.add_development_dependency 'webdrivers', '~> 3.0'
 end

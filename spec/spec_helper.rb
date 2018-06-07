@@ -1,11 +1,16 @@
 require 'coveralls'
 Coveralls.wear!
 
+require 'fileutils'
+
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'rspec/default_rspec_to_browser'
 require 'rspec/rutl_matchers'
 
 RUTL::PAGES = 'spec/pages'.freeze
+RUTL::SCREENSHOTS = 'tmp/screenshots'.freeze
+# The framework should do this.
+FileUtils.rm_rf(RUTL::SCREENSHOTS)
 
 RSpec.configure do |config|
   config.after do

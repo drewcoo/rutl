@@ -55,6 +55,7 @@ jobs:
       - run:
           name: run tests
           command: |
+            mkdir /tmp/screenshots
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
 
@@ -70,3 +71,4 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+          

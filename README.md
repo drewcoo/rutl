@@ -165,6 +165,7 @@ Coming up soon in almost no order:
 * Put more info in this readme.
 * Take screenshots.
 * Diff screenshots. Make this smart so we don't have to be experts.
+* Handle error pages/partials.
 * Move bugs and would-be features to Github Issues instead of this readme and scattered through the code.
 * Make the framework make it easier to spot bugs in pages. Focus on exception-handling?
 * The webdriver gem should already include InternetExplorerDriver. Maybe run tests on AppVeyor.
@@ -177,6 +178,7 @@ Coming up soon in almost no order:
   * Same with iPhone.
     * Same Cordoba test app?
 * Documentation. RDoc?
+* Auto-screenshot support frameworks other than RSpec.
 * Others?
 * Spidering page object maker. Or selector checker/fixer?
 * Possibly pair the null browser with auto-generated pages for ______?

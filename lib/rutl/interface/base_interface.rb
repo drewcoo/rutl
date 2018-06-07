@@ -1,5 +1,5 @@
 require 'rutl/utilities'
-
+require 'rutl/screencam'
 #
 # I might need to consider renaming these.
 # The *interface classes lie between Browser and the webdriver-level classes.
@@ -8,15 +8,21 @@ class BaseInterface
   include Utilities
 
   attr_accessor :driver
+  attr_reader :camera
   attr_accessor :pages
 
   def initialize
     raise 'Child interface class must set @driver.' if @driver.nil?
+    # base_name avoids collisions when unning the same tests with
+    # different browsers.
+    name = self.class.to_s .sub('Interface', '')
+    @camera = ScreenCam.new(@driver, base_name: name)
   end
 
   def goto(page)
     raise 'expect Page class' unless page.ancestors.include?(BasePage)
     find_page(page).go_to_here
+    @camera.screenshot
   end
 
   def current_page
