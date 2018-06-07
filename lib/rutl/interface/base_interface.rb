@@ -8,7 +8,7 @@ class BaseInterface
   include Utilities
 
   attr_accessor :driver
-  attr_reader :camera
+  attr_accessor :camera
   attr_accessor :pages
 
   def initialize

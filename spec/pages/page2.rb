@@ -7,8 +7,4 @@ class Page2 < BasePage
     button :belly, { css: 'where' }, [Page1]
     button :ok, { css: 'some_css' }, [Page1]
   end
-
-  def loaded?
-    true
-  end
 end

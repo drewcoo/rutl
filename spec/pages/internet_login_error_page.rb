@@ -19,6 +19,6 @@ class InternetLoginErrorPage < BasePage
   end
 
   def loaded?
-    url == @interface.driver.current_url && error_banner_element.exists?
+    error_banner_element.exists? && super
   end
 end

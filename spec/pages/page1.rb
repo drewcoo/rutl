@@ -10,8 +10,4 @@ class Page1 < BasePage
     text :okay, { css: 'ORLY' }
     link :away, { css: 'go/away/now/link' }, [Page2]
   end
-
-  def loaded?
-    true
-  end
 end
