@@ -1,8 +1,8 @@
 require 'webdrivers' if ENV['CIRCLECI'].nil?
 require 'spec_helper'
-require 'rutl/interface/chrome_interface'
+require 'rutl/interface/chrome'
 
-RSpec.describe RUTL::ChromeInterface, :slow do
+RSpec.describe RUTL::Interface::Chrome, :slow do
   let!(:browser) do
     RUTL::Browser.new(type: :chrome)
   end
@@ -33,7 +33,6 @@ RSpec.describe RUTL::ChromeInterface, :slow do
       expect(username_text).to eq username
     end
   end
-
 
   it 'fails bad login' do
     unless ENV['CIRCLECI']

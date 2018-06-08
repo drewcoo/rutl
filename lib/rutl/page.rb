@@ -84,8 +84,8 @@ module RUTL
     def method_missing(element, *args, &_block)
       name, selectors, rest = args
       context = RUTL::Element::ElementContext.new(destinations: rest,
-                                   interface: @interface,
-                                   selectors: selectors)
+                                                  interface: @interface,
+                                                  selectors: selectors)
       case element
       when /button/, /checkbox/, /element/, /link/
         add_method(name: name, context: context, klass: element)

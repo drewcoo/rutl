@@ -20,7 +20,7 @@ module RUTL
       @counter = 0
       @driver = driver
       return if guard
-      @base_name = base_name.sub('RUTL::', '')
+      @base_name = base_name.sub('::', '')
       @dir = File.join(RUTL::SCREENSHOTS, @base_name)
       FileUtils.mkdir_p @dir
     end

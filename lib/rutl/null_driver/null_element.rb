@@ -49,8 +49,7 @@ module RUTL
       # Placeholder - NOP
       # Called by RUTL::Element::ClickToChangeStateMixin like
       # Selenium driver.click
-      def click
-      end
+      def click; end
     end
   end
 end

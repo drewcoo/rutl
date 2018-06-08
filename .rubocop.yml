@@ -40,7 +40,7 @@ Style/BracesAroundHashParameters:
 # And BasePage does @@loaded_pages.
 Style/ClassVars:
   Exclude:
-    - 'lib/rutl/driver/null_driver_page_element.rb'
+    - 'lib/rutl/null_driver/null_element.rb'
     - 'lib/rutl/base_page.rb'
 
 # Rubocop flags lots of things as useless assignment when they're actually

@@ -38,8 +38,8 @@ module RUTL
     private
 
     def load_interface(type)
-      require "rutl/interface/#{type}_interface"
-      klass = "RUTL::#{type.to_s.capitalize}Interface"
+      require "rutl/interface/#{type}"
+      klass = "RUTL::Interface::#{type.to_s.capitalize}"
       Object.const_get(klass).new
     end
 

@@ -13,8 +13,8 @@ module RUTL
         # passed in isn't the same as the browser's interface.
         # This only happens with click test cases, before the click, and
         # only if that case isn't run first.
-        # The context we're passed is also an instance from as ChromeInterface,
-        # but a different instance.
+        # The context we're passed is also an instance from as
+        # RUTL::Interface::Chrome, but a different instance.
         #
         # Here's the kludge workaround line:
         @context.interface = $browser.interface
