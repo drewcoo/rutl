@@ -6,7 +6,7 @@ module RUTL
   #
   class NullInterface < BaseInterface
     def initialize
-      context = ElementContext.new(destinations: nil,
+      context = RUTL::Element::ElementContext.new(destinations: nil,
                                    interface: self,
                                    selectors: [])
       @driver = NullDriver.new(context)

@@ -1,5 +1,5 @@
 require 'utilities'
-require 'rutl/screencam'
+require 'rutl/camera'
 
 module RUTL
   #
@@ -9,8 +9,13 @@ module RUTL
   class BaseInterface
     include Utilities
 
+    # RUTL::Driver
     attr_accessor :driver
+
+    # RUTL::Camera
     attr_accessor :camera
+
+    # Array of all RUTL::Page classes
     attr_accessor :pages
 
     def initialize
@@ -18,15 +23,19 @@ module RUTL
       # base_name avoids collisions when unning the same tests with
       # different browsers.
       name = self.class.to_s.sub('RUTL::Interface', '')
-      @camera = ScreenCam.new(@driver, base_name: name)
+      @camera = Camera.new(@driver, base_name: name)
     end
 
+    # Attempts to navigate to the page.
+    # Takes screenshot if successful.
     def goto(page)
       raise 'expect Page class' unless page?(page)
       find_page(page).go_to_here
       @camera.screenshot
     end
 
+    # Should define in children; raises here.
+    # Should return the current page class.
     def current_page
       raise 'define in child classes'
     end
@@ -50,6 +59,7 @@ module RUTL
       false
     end
 
+    # Attempts to find page by class or url.
     def find_page(page)
       @pages.each do |p|
         return p if page?(page) && p.class == page
@@ -58,6 +68,8 @@ module RUTL
       raise "Page \"#{page}\" not found in pages #{@pages}"
     end
 
+    # Calls the polling utility mathod await() with a lambda trying to
+    # find the next state, probably a Page class.
     def wait_for_transition(target_states)
       #
       # TODO: Should also see if there are other things to wait for.
@@ -73,8 +85,6 @@ module RUTL
 
     def quit
       @driver.quit
-      # Maybe I'm reusing pages from @pages?
-      # @pages = []
     end
   end
 end

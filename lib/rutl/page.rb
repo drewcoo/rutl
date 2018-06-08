@@ -1,5 +1,5 @@
-require 'rutl/interface/elements'
-require 'rutl/driver/null_driver'
+require 'rutl/element'
+require 'rutl/null_driver/null_driver'
 
 module RUTL
   #
@@ -52,13 +52,13 @@ module RUTL
     # Dynamically add a method, :<name> (or :<name>= if setter)
     # to the current class where that method creates an instance
     # of klass.
-    # context is an ElementContext
+    # context is a RUTL::Element::ElementContext
     #
     # As it is, this seems silly to break into pieces for Rubocop.
     # rubocop:disable Metrics/MethodLength
     def add_method(context:, klass:, name:, setter: false)
       name = "#{name}_#{klass.downcase}"
-      constant = Module.const_get("RUTL::#{klass.capitalize}")
+      constant = Module.const_get("RUTL::Element::#{klass.capitalize}")
       self.class.class_exec do
         if setter
           define_method("#{name}=") do |value|
@@ -83,7 +83,7 @@ module RUTL
     # rubocop:disable Metrics/MethodLength
     def method_missing(element, *args, &_block)
       name, selectors, rest = args
-      context = ElementContext.new(destinations: rest,
+      context = RUTL::Element::ElementContext.new(destinations: rest,
                                    interface: @interface,
                                    selectors: selectors)
       case element

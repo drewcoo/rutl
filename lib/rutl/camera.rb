@@ -4,7 +4,7 @@ module RUTL
   #
   #   class to take photos of the screen (and diff them?)
   #
-  class ScreenCam
+  class Camera
     def guard
       # When running headless, Selenium seems not to drop screenshots.
       # So that makes this safe in places like Travis.
