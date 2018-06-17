@@ -2,7 +2,7 @@ require 'rutl/null_driver/null_element'
 
 module RUTL
   #
-  # This is at a peer level to the webdrivers but it's for a fake brwoser.
+  # This is at a peer level to the webdrivers but it's for a fake browser.
   #
   class NullDriver
     attr_accessor :context

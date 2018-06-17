@@ -20,8 +20,8 @@ module RUTL
     end
     # rubocop:enable Style/TrivialAccessors
 
-    # Intentially use a class variable to hald pages. Once they're all loaded
-    # they are all loaded for everyone.
+    # Intentionally use a class variable to hald pages. Once they're
+    # all loaded they are all loaded for everyone.
     # rubocop:disable Style/ClassVars
     @@loaded_pages = []
     # rubocop:enable Style/ClassVars

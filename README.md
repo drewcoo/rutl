@@ -35,7 +35,9 @@ Or install it yourself as:
 
 ## Usage
 
+
 ### Page Objects
+
 Page objects are a common paradigm in browser testing. This framework uses the
 following convention for page classes:
 * must inherit from Rutl::BasePage (require rutl/base_page)
@@ -111,33 +113,40 @@ what you can see on whatever page you're on. Let's walk through this.
 * We verify that the current page is an instance of the intended page.
   * Also note here that we have a matcher be_page which matches a page class.
 
+
 ### RSpec Goodies
 
 The tests here are in RSpec and use some conventions that may be common if your tests are also RSpec.
 
+
 #### DefaultRspecToBrowser
+
 This is a module that allows us to skip writing `browser.` in front of everything.
 1. We assume that `browser` is defined.
 2. On method_missing, we try to send the method to `browser`.
 
 It lets us turn this:
 ```
-    browser.field1_text = 'foo'
+    message = 'foo'
+    browser.field1_text = message
     browser.ok_button.click
     expect(browser.current_page).to eq(NextPage)
 ```
 into this:
 ```
-    field1_text = 'foo'
+    message = 'foo'
+    field1_text = message
     ok_button.click
     expect(current_page).to eq(NextPage)
 ```
-which means less boilerplate and it's easier to follow.
+which means less boilerplate.
+Because we insist on adding UI element type as part of the naming convention there's no confusion about which things are UI elements and which aren't. In this case, we don't mistake our variable "message" for a UI element.
 
 To use it:
 ```
     require 'rutl/rspec/default_rspec_to_browser'
 ```
+
 
 #### RSpec Matcher
 
@@ -158,6 +167,7 @@ To use it:
     require 'rutl/rspec/rutl_matchers'
 ```
 
+
 ### Auto-screenshotting
 
 If you have RUTL::SCREENSHOTS or ENV['SCREENSHOTS'] set to a directory, RUTL
@@ -167,7 +177,9 @@ RSpec description with an auto-incrementing number.
 If you're not using RSpec, that's not terribly useful but you can always have
 your tests screenshot anyway, just less magic.
 
+
 ## Roadmap
+
 Coming up soon in almost no order:
 * Handle other errors. Auto-screenshot on errors. Navigation errors. Unexpected exceptions?
 * A test framework should have better tests.
@@ -175,17 +187,29 @@ Coming up soon in almost no order:
 * Put more info in this readme.
 * Move bugs and would-be features to Github Issues instead of this readme and scattered through the code.
 * Make the framework make it easier to spot bugs in pages. Focus on exception-handling?
-* The webdriver gem should already include InternetExplorerDriver. Maybe run tests on AppVeyor.
-* Other browser drivers? Look at https://github.com/fnando/browser
-* Get this working with Appium:
-  * Make TK app to test on desktops and test it.
+* The webdriver gem should already include [InternetExplorerDriver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver). Maybe run tests on [AppVeyor](https://www.appveyor.com/).
+* [Other browser drivers](https://github.com/fnando/browser)?
+* Get this working with [Appium](https://appium.io/):
+  * Make [TK app](https://www.tutorialspoint.com/ruby/ruby_tk_guide.htm) to test on desktops and test it.
     * Can Ruby TK create accesible apps? Not in the simple demos.
   * Make Android example app and get this to work.
-    * Corboba?
+    * [Corbova](https://cordova.apache.org/) for app?
+    * Choose (default?) emulator. Many choices.
   * Same with iPhone.
-    * Same Cordoba test app?
+    * Where to build/test? [CircleCI](https://circleci.com/build-environments/#apple-platforms)?
+    * Same Cordova test app?
+    * Are there decent alternatives yet to the simulator?
 * Documentation. RDoc?
+* Add these things and treat as plugins?
+  * Security testing. See [OWASP](https://github.com/OWASP) stuff.
+    * Also OWASP mobile security testing guide.
+    * Avoid deeper pen testing. Leave it to other toolkits.
+  * Other toolkits? Accessibility?
+  * Support web proxy and integrate out of the box. Browsermob?
+    * Get HARs here for perf stuff.
+    * Also look at browser events and tie to HARs? (Always wanted to do that.)
 * Auto-screenshot support frameworks other than RSpec.
+  * Or just default them to screenshots at known view changes (links/buttons/other?) or errors.
 * Others?
 * Spidering page object maker. Or selector checker/fixer?
 * Possibly pair the null browser with auto-generated pages for ______?
@@ -210,7 +234,17 @@ Rubocop. I still have to tweak what I want it to complain about.
     bundle exec rubocop
 ```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`.
+
+To release a new version, update the version number in `version.rb` like so
+
+    `bundle exec gem bump -v [major|minor|patch|pre|release]`
+
+and then run
+
+    `bundle exec rake release`
+
+which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 
 ## Contributing
