@@ -1,4 +1,4 @@
-require 'webdrivers' if ENV['CIRCLECI'].nil?
+require 'webdrivers' unless ENV['CIRCLECI']
 require 'spec_helper'
 require 'rutl/interface/firefox'
 

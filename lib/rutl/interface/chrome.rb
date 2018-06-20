@@ -15,7 +15,7 @@ module RUTL
         options.add_argument('--disable-popup-blocking')
         options.add_argument('--disable-translate')
         # Run headless on TravisCI
-        if ENV['TRAVIS'] == 'true'
+        if ENV['TRAVIS']
           options.add_argument('--disable-gpu')
           options.add_argument('--headless ')
           options.add_argument('--no-sandbox')

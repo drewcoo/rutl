@@ -13,7 +13,7 @@ module RUTL
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--disable-popup-blocking')
         options.add_argument('--disable-translate')
-        options.add_argument('--headless') if ENV['TRAVIS'] == 'true'
+        options.add_argument('--headless') if ENV['TRAVIS'] || ENV['CIRCLECI']
         @driver = Selenium::WebDriver.for :firefox, options: options
         super
       end
