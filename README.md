@@ -193,11 +193,11 @@ Coming up soon in almost no order:
   * Make [TK app](https://www.tutorialspoint.com/ruby/ruby_tk_guide.htm) to test on desktops and test it.
     * Can Ruby TK create accesible apps? Not in the simple demos.
   * Make Android example app and get this to work.
-    * [Corbova](https://cordova.apache.org/) for app?
+    * [Cordova](https://cordova.apache.org/) or [React Native](https://facebook.github.io/react-native/) or maybe even [Flutter](https://flutter.io/)for app?
     * Choose (default?) emulator. Many choices.
   * Same with iPhone.
     * Where to build/test? [CircleCI](https://circleci.com/build-environments/#apple-platforms)?
-    * Same Cordova test app?
+    * Same test app as Android.
     * Are there decent alternatives yet to the simulator?
 * Documentation. RDoc?
 * Add these things and treat as plugins?
