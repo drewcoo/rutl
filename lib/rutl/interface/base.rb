@@ -1,5 +1,6 @@
-require 'utilities'
 require 'rutl/camera'
+require 'utilities/check_page'
+require 'utilities/waiter'
 
 module RUTL
   module Interface
@@ -9,7 +10,8 @@ module RUTL
     # and the webdriver-level classes.
     #
     class Base
-      include Utilities
+      include CheckPage
+      include Waiter
 
       # RUTL::Driver
       attr_accessor :driver

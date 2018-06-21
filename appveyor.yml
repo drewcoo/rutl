@@ -7,7 +7,7 @@ install:
   - set PATH=C:\Ruby25-x64\bin;%PATH%
   - bundle install
   - choco install googlechrome
-  - reg import ie.reg
+  - reg import bin\ie.reg
 
 build: off
 

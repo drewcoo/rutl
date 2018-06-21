@@ -1,9 +1,8 @@
-require 'webdrivers' unless ENV['CIRCLECI']
-require 'utilities'
 require 'spec_helper'
+require 'utilities/string'
+require 'webdrivers' unless ENV['CIRCLECI']
 
-BROWSER_TYPES = %i[chrome firefox internet_explorer].freeze
-BROWSER_TYPES.each do |browser_type|
+%i[chrome firefox internet_explorer].freeze.each do |browser_type|
   case browser_type
   when :chrome
     # AppVeyor builds have to install latest.

@@ -1,5 +1,5 @@
-require 'utilities'
 require 'rutl/page'
+require 'utilities/string'
 
 module RUTL
   #
@@ -8,8 +8,6 @@ module RUTL
   # rethink this naming convention.
   #
   class Browser
-    include Utilities
-
     attr_reader :interface
 
     def initialize(type:, rutl_pages: RUTL::PAGES || ENV['RUTL_PAGES'])
