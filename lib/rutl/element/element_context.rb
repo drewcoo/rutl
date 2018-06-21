@@ -29,7 +29,8 @@ module RUTL
         @selectors = selectors
       end
 
-      def find_element(type)
+      def find_element(type = nil)
+        type ||= @selectors.first.first
         # @interface.driver.find_element(type, @selectors[type])
         # Should be this, but apparently @interface.driver is being overwritten
         # (or not written to) and it doesn't work. Using $browser does. :-(

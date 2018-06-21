@@ -1,7 +1,21 @@
 require 'webdrivers' unless ENV['CIRCLECI']
+require 'utilities'
 require 'spec_helper'
-BROWSER_TYPES = [:chrome, :firefox]
+
+BROWSER_TYPES = %i[chrome firefox internet_explorer].freeze
 BROWSER_TYPES.each do |browser_type|
+  case browser_type
+  when :chrome
+    # AppVeyor builds have to install latest.
+  when :firefox
+    # But AppVeyor builds not installing latast FF. Should they?
+  when :internet_explorer
+    next if ENV['CIRCLECI'] || ENV['TRAVIS']
+    # Runs localy and if ENV['APPVEYOR']
+  else
+    raise 'unknown browser type'
+  end
+
   require "rutl/interface/#{browser_type}"
   #
   # There's special magic here in that these tests are tagged slow for all
@@ -12,7 +26,7 @@ BROWSER_TYPES.each do |browser_type|
   #   rspec --tag firefox
   # for example.
   #
-  RSpec.describe "RUTL::Interface::#{browser_type.capitalize}",
+  RSpec.describe "RUTL::Interface::#{browser_type.to_s.pascal_case}",
                  browser_type, :slow do
     let!(:browser) do
       RUTL::Browser.new(type: browser_type)

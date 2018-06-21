@@ -6,7 +6,8 @@ class InternetLoginPage < RUTL::Page
   def layout
     text :username, { css: 'input#username' } # tomsmith
     text :password, { css: 'input#password' } # SuperSecretPassword
-    button :login, { css: 'i.fa.fa-2x.fa-sign-in' },
+    button :login,
+           { css: 'i.fa.fa-2x.fa-sign-in' },
            [InternetLoggedInPage, InternetLoginErrorPage]
     link :elemental_selenium,
          { css: '.large-4 > div:nth-child(2) > a:nth-child(1)' },

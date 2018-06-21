@@ -14,7 +14,7 @@ module RUTL
       # * Returns the state we transitioned to.
       def click
         @context.interface.camera.screenshot
-        this_css.click
+        @context.find_element.click
         result = @context.interface.wait_for_transition(@context.destinations)
         @context.interface.camera.screenshot
         result
