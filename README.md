@@ -23,7 +23,7 @@ Framework goals:
 
 Add this line to your application's Gemfile:
 
-    $ gem 'rutl'
+    $ gem rutl
 
 And then execute:
 
@@ -41,25 +41,25 @@ Or install it yourself as:
 
 Page objects are a common paradigm in browser testing. This framework uses the
 following convention for page classes:
-* must inherit from Rutl::BasePage (require rutl/base_page)
-* by default, the class should follow the naming convention ending with "Page" (optional?)
-* must have @url defined per page
+* must inherit from `rutl::BasePage` (`require rutl/base_page`)
+* by default, the class should follow the naming convention ending with `Page` (optional?)
+* must have `@url` defined per page
 * must have a layout method such that
- * field types are defined by methods button, checkbox, link, and text (more tbd?)
+ * field types are defined by methods `button`, `checkbox`, `link`, and `text` (more tbd?)
  * field type is followed by name as a symbol (add support for string? tbd)
  * then a comma
  * hash of selectors
-   * key is selector type as symbol (currently only :css)
+   * key is selector type as symbol (currently only `:css`)
    * value is string path
  * optional comma if there are destinations or error conditions
  * optional array of destination page or error condition classes if clicking the element causes transition
 * loaded? method returning boolean to determine when page is loaded
   * defaults to just checking url; overide as needed
-* go_to_here (better name?) method to navigate to the page if we can't just go to the url
+* `go_to_here` (better name?) method to navigate to the page if we can't just go to the url
 * your own methods because it's a plain ol' Ruby class
 
 
- Example:
+Example:
 
 ```ruby
     require 'rutl/base_page'
@@ -100,19 +100,19 @@ The framework loads and manages all the pages. You just have to interact with
 what you can see on whatever page you're on. Let's walk through this.
 * TBD: Does RUTL come with browser drivers? Browsers? What needs to be added?
 * We're using let! because:
-  * it forces instantiation of "browser" every time
-  * we include DefaultRspecToBrowser, defaulting missing methods to "browser"
+  * it forces instantiation of `browser` every time
+  * we `include DefaultRspecToBrowser`, defaulting missing methods to "browser"
   * thus the terse lines that follow
-* We didn't pass named param rutl_pages: to Browser so we must have done one of:
-  * setting environment variable RUTL_PAGES
-  * setting RUTL::PAGES
-* Browser's type: parameter currently supports :chrome, :firefox, and :null.
-* The first call to the browser is goto because it wasn't on a page.
-* Auto-created fields are named "#{friendly_name}_#{field_type}".
-* Getting and setting text fields is as easy as calling a String.
+* We didn't pass named param `rutl_pages:` to `browser` so we must have done one of:
+  * setting environment variable `RUTL_PAGES`
+  * setting `RUTL::PAGES`
+* Browser's `type:` parameter currently supports `:chrome`, `:firefox`, and `:null`.
+* The first call to the browser is `goto` because it wasn't on a page.
+* Auto-created fields are named `#{friendly_name}_#{field_type}`.
+* Getting and setting text fields is as easy as calling a `String`.
 * When we call click, the framework polls for a next state.
 * We verify that the current page is an instance of the intended page.
-  * Also note here that we have a matcher be_page which matches a page class.
+  * Also note here that we have a matcher `be_page` which matches a page class.
 
 
 ### RSpec Goodies
@@ -127,24 +127,24 @@ This is a module that allows us to skip writing `browser.` in front of everythin
 2. On method_missing, we try to send the method to `browser`.
 
 It lets us turn this:
-```
+```ruby
     message = 'foo'
     browser.field1_text = message
     browser.ok_button.click
-    expect(browser.current_page).to eq(NextPage)
+    expect(browser.current_page).to be_page(NextPage)
 ```
 into this:
-```
+```ruby
     message = 'foo'
     field1_text = message
     ok_button.click
-    expect(current_page).to eq(NextPage)
+    expect(current_page).to be_page(NextPage)
 ```
 which means less boilerplate.
 Because we insist on adding UI element type as part of the naming convention there's no confusion about which things are UI elements and which aren't. In this case, we don't mistake our variable "message" for a UI element.
 
 To use it:
-```
+```ruby
     require 'rutl/rspec/default_rspec_to_browser'
 ```
 
@@ -154,24 +154,24 @@ To use it:
 Currently the only has the `be_page` matcher.
 
 It lets us turn this:
-```
+```ruby
     expect(browser.current_page).to be_instance_of(MyPage)
 ```
 into this:
-```
+```ruby
     expect(browser.current_page).to be_page(MyPage)
 ```
 Both are acceptable but the second is more readable.
 
 To use it:
-```
+```ruby
     require 'rutl/rspec/rutl_matchers'
 ```
 
 
 ### Auto-screenshotting
 
-If you have RUTL::SCREENSHOTS or ENV['SCREENSHOTS'] set to a directory, RUTL
+If you have `RUTL::SCREENSHOTS` or `ENV['SCREENSHOTS']` set to a directory, RUTL
 will automatically take screenshots on page transitions.
 If you're using RSpec, they'll be automatically named something based on the
 RSpec description with an auto-incrementing number.
@@ -200,7 +200,7 @@ Coming up soon in almost no order:
     * Where to build/test? [CircleCI](https://circleci.com/build-environments/#apple-platforms)?
     * Same test app as Android.
     * Are there decent alternatives yet to the simulator?
-* Documentation. RDoc?
+* Improve documentation.
 * Add these things and treat as plugins?
   * Security testing. See [OWASP](https://github.com/OWASP) stuff.
     * Also OWASP mobile security testing guide.
@@ -238,12 +238,14 @@ Rubocop. I still have to tweak what I want it to complain about.
 To install this gem onto your local machine, run `bundle exec rake install`.
 
 To release a new version, update the version number in `version.rb` like so
-
-    `bundle exec gem bump -v [major|minor|patch|pre|release]`
+```ruby
+    bundle exec gem bump -v [major|minor|patch|pre|release]
+```
 
 and then run
-
-    `bundle exec rake release`
+```ruby
+    bundle exec rake release
+```
 
 which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
