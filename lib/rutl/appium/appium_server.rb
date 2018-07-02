@@ -1,8 +1,10 @@
 require 'faraday'
+require 'utilities/waiter'
 #
 # Class to wrap Appium in a Rubyish way.
 #
 class AppiumServer
+  include Waiter
   attr_accessor :port, :server
 
   def initialize(server: nil, port: nil)
@@ -17,7 +19,7 @@ class AppiumServer
   def start
     raise 'server already started' if started?
     quiet_cmd('start "appium" cmd /c appium')
-    sleep 0.1 until started?
+    await -> { started? }
   end
 
   def started?

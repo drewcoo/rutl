@@ -1,8 +1,8 @@
-##
-# Extend Appium because I keep digging through WinAppDriver junk to
-# figure out what's broken.
-#
 module Appium
+  ##
+  # Extend Appium because I keep digging through WinAppDriver junk to
+  # figure out what's broken.
+  #
   class Driver
     def start
       start_driver
@@ -15,13 +15,10 @@ module Appium
       end
       exit
     rescue Selenium::WebDriver::Error::NoSuchWindowError => e
-      puts e.class
-      puts
-      puts e.cause
-      puts
-      puts e.backtrace
-      puts
-      puts (e.methods - Class.methods)
+      puts "\n\n" + e.class
+      puts "\n\n" + e.cause
+      puts "\n\n" + e.backtrace
+      puts "\n\n" + (e.methods - Class.methods)
     end
 
     def app_open?

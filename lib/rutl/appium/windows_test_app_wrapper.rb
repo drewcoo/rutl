@@ -1,9 +1,10 @@
-# gem install win32-window --pre
 require 'win32/window'
+require 'utilities/waiter'
 #
 # wrapper for simple test apps
 #
 class WindowsTestApp
+  include Waiter
   attr_reader :window_handle_string
 
   def initialize(name:, title:)
@@ -11,16 +12,16 @@ class WindowsTestApp
     @title = title
   end
 
+  def find_window_by_title
+    result = Win32::Window.find(title: @title)
+    raise 'found more than one instance of app' if result.size > 1
+    result.empty? ? false : result.first
+  end
+
   def wait_for_started
-    # Put this on a timeout!
-    app_windows = []
-    until(app_windows.size > 0)
-      app_windows = Win32::Window.find(title: @title)
-      raise 'found more than one instance of app' if app_windows.size > 1
-      sleep 0.1
-    end
-    @pid = app_windows.first.pid
-    @window_handle_string = "0x%08x" % app_windows.first.handle
+    app_window = await -> { find_window_by_title }
+    @pid = app_window.pid
+    @window_handle_string = format('0x%08x', app_window.handle)
   end
 
   def start

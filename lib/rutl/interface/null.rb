@@ -20,7 +20,8 @@ module RUTL
 
       def current_view
         # Default to @view.first if not set?
-        # An application can always check its current URL but the null driver can't.
+        # An application can always check its current URL but
+        # the null driver can't.
         @current_view ||= @views.first
       end
 

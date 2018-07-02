@@ -2,8 +2,6 @@ require 'spec_helper'
 require 'utilities/string'
 require 'webdrivers' unless ENV['CIRCLECI']
 
-RUTL::VIEWS = 'spec/views/web'.freeze
-
 %i[chrome firefox internet_explorer].freeze.each do |browser_type|
   case browser_type
   when :chrome
@@ -30,7 +28,7 @@ RUTL::VIEWS = 'spec/views/web'.freeze
   RSpec.describe "RUTL::Interface::#{browser_type.to_s.pascal_case}",
                  browser_type, :slow do
     let!(:application) do
-      RUTL::Application.new(type: browser_type)
+      RUTL::Application.new(type: browser_type, rutl_views: 'spec/views/web')
     end
 
     before do
@@ -78,10 +76,12 @@ RUTL::VIEWS = 'spec/views/web'.freeze
     end
 
     context 'when log in' do
-      before(:each) do
+      before do
         # TODO: application doesn't have focus and get username_text unless
         # I explicitly pass application.username_text here.
         # Why?
+        # Ok, so it's because it can't tell that each isn't a local variable.
+        # Not sure what to do about it yet.
         application.username_text = 'tomsmith'
         application.password_text = 'SuperSecretPassword!'
       end
