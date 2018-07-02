@@ -2,7 +2,7 @@ require 'rutl/null_driver/null_element'
 
 module RUTL
   #
-  # This is at a peer level to the webdrivers but it's for a fake browser.
+  # This is at a peer level to the webdrivers but it's for a fake application.
   #
   class NullDriver
     attr_accessor :context
@@ -19,7 +19,7 @@ module RUTL
       RUTL::Element::NullElement.new(context, type, location)
     end
 
-    # Cheap way to handle browser.navigate.to(url)
+    # Cheap way to handle application.navigate.to(url)
     # TODO: Until I care about the url and then I should ????
     def navigate
       context = RUTL::Element::ElementContext.new(interface: @context.interface)
@@ -28,8 +28,8 @@ module RUTL
 
     # Cheap second part to naviate.to(url) calls to look like real drivers.
     def to(url)
-      result = @context.interface.find_page(url)
-      @context.interface.current_page = result
+      result = @context.interface.find_view(url)
+      @context.interface.current_view = result
       result.url
     end
 

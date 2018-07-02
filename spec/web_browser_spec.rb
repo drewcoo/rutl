@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'utilities/string'
 require 'webdrivers' unless ENV['CIRCLECI']
 
+RUTL::VIEWS = 'spec/views/web'.freeze
+
 %i[chrome firefox internet_explorer].freeze.each do |browser_type|
   case browser_type
   when :chrome
@@ -27,12 +29,12 @@ require 'webdrivers' unless ENV['CIRCLECI']
   #
   RSpec.describe "RUTL::Interface::#{browser_type.to_s.pascal_case}",
                  browser_type, :slow do
-    let!(:browser) do
-      RUTL::Browser.new(type: browser_type)
+    let!(:application) do
+      RUTL::Application.new(type: browser_type)
     end
 
     before do
-      goto(InternetLoginPage)
+      goto(InternetLoginView)
     end
 
     context 'with text field' do
@@ -69,28 +71,28 @@ require 'webdrivers' unless ENV['CIRCLECI']
         # password. That is an informations leak thus a bug and I'd rather not
         # contribute to someone else "testing the bug in" so this only tests for
         # there being an error and not the type of error.
-        expect(current_page).to be_page(InternetLoginErrorPage)
+        expect(current_view).to be_view(InternetLoginErrorView)
       end
     end
 
     context 'when log in' do
       before(:each) do
-        # TODO: browser doesn't have focus and get username_text unless
-        # I explicitly pass browser.username_text here.
+        # TODO: application doesn't have focus and get username_text unless
+        # I explicitly pass application.username_text here.
         # Why?
-        browser.username_text = 'tomsmith'
-        browser.password_text = 'SuperSecretPassword!'
+        application.username_text = 'tomsmith'
+        application.password_text = 'SuperSecretPassword!'
       end
 
-      it 'lands on logged in page' do
+      it 'lands on logged in view' do
         login_button.click
-        expect(current_page).to be_page(InternetLoggedInPage)
+        expect(current_view).to be_view(InternetLoggedInView)
       end
 
       it 'can log back out' do
         login_button.click
         logout_button.click
-        expect(current_page.url).to eq InternetLoginPage.url
+        expect(current_view.url).to eq InternetLoginView.url
       end
     end
   end

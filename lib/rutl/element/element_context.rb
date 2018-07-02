@@ -17,7 +17,7 @@ module RUTL
       def initialize(destinations: nil, interface: nil, selectors: [])
         unless destinations.nil? || destinations.class == Array
           # Should check each destination to make sure it's a
-          # Page or a _____, too.
+          # View or a _____, too.
           raise 'destination must be an Array of destinations or nil.'
         end
         @destinations = destinations || []
@@ -33,8 +33,8 @@ module RUTL
         type ||= @selectors.first.first
         # @interface.driver.find_element(type, @selectors[type])
         # Should be this, but apparently @interface.driver is being overwritten
-        # (or not written to) and it doesn't work. Using $browser does. :-(
-        $browser.interface.driver.find_element(type, @selectors[type])
+        # (or not written to) and it doesn't work. Using $application does. :-(
+        $application.interface.driver.find_element(type, @selectors[type])
       end
     end
   end

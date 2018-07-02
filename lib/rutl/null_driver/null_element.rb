@@ -3,7 +3,7 @@ require 'rutl/element/element_context'
 module RUTL
   module Element
     #
-    # This fakes all page elements when used with the null driver.
+    # This fakes all view elements when used with the null driver.
     # It's a dirty way to avoid modeling all of what a driver talks to.
     #
     class NullElement
@@ -21,8 +21,8 @@ module RUTL
 
       # @@string is a class variable because this framework creates new
       # instances of each element every time it accesses them. This is good
-      # behavior by default because pages could change underneath us.
-      # For text fields in the null browser, though, we want to preserve the
+      # behavior by default because views could change underneath us.
+      # For text fields in the null application, though, we want to preserve the
       # values across calls, letting us write and then read.
       def send_keys(string)
         init = @@variables[@location] || ''
@@ -42,7 +42,7 @@ module RUTL
         @@variables[@location] = ''
       end
 
-      def this_css
+      def find_element
         self
       end
 

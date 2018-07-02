@@ -1,12 +1,12 @@
-require 'rutl/page'
+require 'rutl/view'
 
-class InternetLoggedInPage < RUTL::Page
+class InternetLoggedInView < RUTL::View
   @url = 'http://the-internet.herokuapp.com/secure'
 
   def layout
     button :logout,
            { css: 'i.icon-2x.icon-signout' },
-           [InternetLoginPage]
+           [InternetLoginView]
     link :elemental_selenium,
          { css: '.large-4 > div:nth-child(2) > a:nth-child(1)' },
          ['elementalselenium.com']

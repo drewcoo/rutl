@@ -2,21 +2,21 @@
 # Currently not in use.
 # Should go in its own file, too.
 #
-module DefaultRspecToBrowser
+module DefaultRspecToApplication
   # rubocop:disable Style/MethodMissingSuper
   def method_missing(method, *args, &block)
     if args.empty?
-      browser.send(method)
+      application.send(method)
     else
-      browser.send(method, *args, &block)
+      application.send(method, *args, &block)
     end
   rescue ArgumentError
-    browser.send(method)
+    application.send(method)
   end
   # rubocop:enable Style/MethodMissingSuper
 
   def respond_to_missing?(method, _include_private = false)
-    return false if method =~ /browser/
-    browser.respond_to?(method)
+    return false if method =~ /application/
+    application.respond_to?(method)
   end
 end

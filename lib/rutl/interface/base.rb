@@ -1,16 +1,16 @@
 require 'rutl/camera'
-require 'utilities/check_page'
+require 'utilities/check_view'
 require 'utilities/waiter'
 
 module RUTL
   module Interface
     #
     # I might need to consider renaming these.
-    # The *interface classes lie between Browser
+    # The *interface classes lie between Application
     # and the webdriver-level classes.
     #
     class Base
-      include CheckPage
+      include CheckView
       include Waiter
 
       # RUTL::Driver
@@ -19,72 +19,72 @@ module RUTL
       # RUTL::Camera
       attr_accessor :camera
 
-      # Array of all RUTL::Page classes
-      attr_accessor :pages
+      # Array of all RUTL::View classes
+      attr_accessor :views
 
       def initialize
         raise 'Child interface class must set @driver.' if @driver.nil?
         # base_name avoids collisions when unning the same tests with
-        # different browsers.
+        # different applications
         name = self.class.to_s.sub('RUTL::Interface', '')
         @camera = Camera.new(@driver, base_name: name)
       end
 
-      # Attempts to navigate to the page.
+      # Attempts to navigate to the view.
       # Takes screenshot if successful.
-      def goto(page)
-        raise 'expect Page class' unless page?(page)
-        find_page(page).go_to_here
+      def goto(view)
+        raise 'expect View class' unless view?(view)
+        find_view(view).go_to_here
         @camera.screenshot
       end
 
       # Should define in children; raises here.
-      # Should return the current page class.
-      def current_page
+      # Should return the current view class.
+      def current_view
         raise 'define in child classes'
       end
 
       def method_missing(method, *args, &block)
         if args.empty?
-          current_page.send(method)
+          current_view.send(method)
         else
-          current_page.send(method, *args, &block)
+          current_view.send(method, *args, &block)
         end
       end
 
-      # TODO: Is this needed? I not only find the page but also make sure the
-      # urls match. Even though that's what finding pages means?
+      # TODO: Is this needed? I not only find the view but also make sure the
+      # urls match. Even though that's what finding views means?
       def find_state(target_states)
         target_states.each do |state|
-          next unless state.url == current_page.url
-          page = find_page(state)
-          return page if page.loaded?
+          next unless state.url == current_view.url
+          view = find_view(state)
+          return view if view.loaded?
         end
         false
       end
 
-      # Attempts to find page by class or url.
-      def find_page(page)
-        @pages.each do |p|
-          return p if page?(page) && p.class == page
-          return p if String == page.class && page == p.url
+      # Attempts to find view by class or url.
+      def find_view(view)
+        @views.each do |p|
+          return p if view?(view) && p.class == view
+          return p if String == view.class && view == p.url
         end
-        raise "Page \"#{page}\" not found in pages #{@pages}"
+        raise "View \"#{view}\" not found in views #{@views}"
       end
 
       # Calls the polling utility mathod await() with a lambda trying to
-      # find the next state, probably a Page class.
+      # find the next state, probably a View class.
       def wait_for_transition(target_states)
         #
         # TODO: Should also see if there are other things to wait for.
-        # I don't think this is doing page load time.
+        # I don't think this is doing view load time.
         #
         await -> { find_state target_states }
       end
 
       def respond_to_missing?(*args)
         # This can't be right. Figure it out later.
-        current_page.respond_to?(*args)
+        current_view.respond_to?(*args)
       end
 
       def quit

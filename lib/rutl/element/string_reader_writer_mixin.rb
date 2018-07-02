@@ -14,28 +14,32 @@ module RUTL
 
       # I could cut set() and only foo_text= if I change this.
       # The problem I'm running into is not having the driver in
-      # base element to do this_css calls. So I have to change the way
+      # base element to do find_element calls. So I have to change the way
       # drivers are passed into everything or initially have them everywhere,
-      # which means rewriting chosen drivers or changing page load.
+      # which means rewriting chosen drivers or changing view load.
       # Ick.
       def set(string)
         clear
-        this_css.send_keys(string)
+        find_element.send_keys(string)
       end
       alias text= set
       alias value= set
 
       # Return the String held by this element.
       def get
-        this_css.attribute(:value)
+        found = find_element
+        # This is a clumsy workaround for winappdriver, which gets textfields
+        # as #text even though everything else seems to use #attribute(:value).
+        # If both are false, this is undefined.
+        found.attribute(:value) || found.text
       end
       alias text get
       alias value get
       alias to_s get
 
-      # Talk to the page and set the element's string to ''.
+      # Talk to the view  and set the element's string to ''.
       def clear
-        this_css.clear
+        find_element.clear
         get
       end
 
@@ -48,7 +52,7 @@ module RUTL
       # Sends these keystrokes without clearing the field.
       # Returns the whole string in the field, including this input.
       def send_keys(string)
-        this_css.send_keys(string)
+        find_element.send_keys(string)
         get
       end
 

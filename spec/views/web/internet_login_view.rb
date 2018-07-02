@@ -1,6 +1,6 @@
-require 'rutl/page'
+require 'rutl/view'
 
-class InternetLoginPage < RUTL::Page
+class InternetLoginView < RUTL::View
   @url = 'http://the-internet.herokuapp.com/login'
 
   def layout
@@ -8,13 +8,13 @@ class InternetLoginPage < RUTL::Page
     text :password, { css: 'input#password' } # SuperSecretPassword
     button :login,
            { css: 'i.fa.fa-2x.fa-sign-in' },
-           [InternetLoggedInPage, InternetLoginErrorPage]
+           [InternetLoggedInView, InternetLoginErrorView]
     link :elemental_selenium,
          { css: '.large-4 > div:nth-child(2) > a:nth-child(1)' },
          ['elementalselenium.com']
     element :error_banner, { css: 'div#flash.flash.error' }
     # div#flash.flash.success shows some text on success
-    # AND same on logged in page
+    # AND same on logged in view
     # div#flash.flash.error on error
     # and otherwise not there
   end

@@ -18,11 +18,11 @@ module RUTL
         super
       end
 
-      def current_page
+      def current_view
         url = @driver.current_url
-        page = find_page(url)
-        raise "PAGE NOT FOUND: #{url}, PAGES: #{@pages}" unless page
-        page
+        view = find_view(url)
+        raise "NOT FOUND: #{url}, VIEWS: #{@views}" unless view
+        view
       end
     end
   end

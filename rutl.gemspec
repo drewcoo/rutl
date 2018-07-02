@@ -38,6 +38,19 @@ Gem::Specification.new do |spec|
   # Works locally and with Travis.
   spec.add_dependency 'webdrivers', '~> 3.0'
 
+  # everything but browsers
+  spec.add_dependency 'appium_lib', '~> 9.14'
+  # need eventmachine for Appium
+  spec.add_dependency 'eventmachine', '~> 1.2'
+  # using this to talk HTTP to the Appium server
+  spec.add_dependency 'faraday', '~> 0.15'
+  if ENV['OS'] == 'Windows_NT'
+    # to get native window handles on Windows
+    spec.add_dependency 'win32-window', '~> 0.2.0.pre'
+    # my test app uses this
+    spec.add_dependency 'tk', '~> 0.2'
+  end
+
   # Dependencies for development only.
   spec.add_development_dependency 'bundler', '~> 1.15'
   spec.add_development_dependency 'gem-release', '~> 1.0'
