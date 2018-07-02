@@ -10,15 +10,15 @@ module RUTL
   class Application
     attr_reader :interface
 
-    def initialize(type:, rutl_views: RUTL::VIEWS || ENV['RUTL_VIEWS'])
-      if rutl_views.nil? || rutl_views.empty?
-        raise "Set RUTL::VIEWS or ENV['RUTL_VIEWS'] or pass dir as rutl_views:"
+    def initialize(family:, type:, views: RUTL::VIEWS || ENV['RUTL_VIEWS'])
+      if views.nil? || views.empty?
+        raise "Set RUTL::VIEWS or ENV['RUTL_VIEWS'] or pass dir as views:"
       end
       # This is kind of evil. Figure out how to ditch the $ variable.
       $application = self
       @interface = nil # TODO: Why this line? Do I need to do this?
-      @interface = load_interface(type)
-      @interface.views = load_views(directory: rutl_views)
+      @interface = load_interface(family: family, type: type)
+      @interface.views = load_views(directory: views)
     end
 
     def method_missing(method, *args, &block)
@@ -35,8 +35,8 @@ module RUTL
 
     private
 
-    def load_interface(type)
-      require "rutl/interface/#{type}"
+    def load_interface(family:, type:)
+      require "rutl/interface/#{family}/#{type}"
       klass = "RUTL::Interface::#{type.to_s.pascal_case}"
       Object.const_get(klass).new
     end

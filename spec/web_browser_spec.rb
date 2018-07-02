@@ -15,7 +15,6 @@ require 'webdrivers' unless ENV['CIRCLECI']
     raise 'unknown browser type'
   end
 
-  require "rutl/interface/#{browser_type}"
   #
   # There's special magic here in that these tests are tagged slow for all
   # browsers and there are tagged instances or each of these for the individual
@@ -28,7 +27,8 @@ require 'webdrivers' unless ENV['CIRCLECI']
   RSpec.describe "RUTL::Interface::#{browser_type.to_s.pascal_case}",
                  browser_type, :slow do
     let!(:application) do
-      RUTL::Application.new(type: browser_type, rutl_views: 'spec/views/web')
+      RUTL::Application.new(family: :browser, type: browser_type,
+                            views: 'spec/views/web')
     end
 
     before do

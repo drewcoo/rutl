@@ -1,11 +1,11 @@
-require 'rutl/interface/base'
+require 'rutl/interface/browser/browser'
 
 module RUTL
   module Interface
     #
     # Interface-level code for fake application.
     #
-    class Null < Base
+    class Null < Browser
       def initialize
         context = RUTL::Element::ElementContext.new(destinations: nil,
                                                     interface: self,

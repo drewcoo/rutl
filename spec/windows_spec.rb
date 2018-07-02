@@ -15,18 +15,6 @@ if ENV['OS'] == 'Windows_NT' && ENV['COMPUTERNAME'] == 'DREW-DEV2'
   #
   hello_exit_button = { xpath: '/Window/Pane/Button' }
 
-  #
-  # Dumb method to return a hash that ought to be frozen but that's
-  # not really a Ruby thing despite all of Rubocop's complaints about strings.
-  #
-  def base_opts
-    { caps: { platformName: 'WINDOWS',
-              platform: 'WINDOWS',
-              deviceName: 'WindowsPC' },
-      appium_lib: { wait_timeout: 2,
-                    wait_interval: 0.01 } }
-  end
-
   RSpec.describe 'windows tests' do
     before(:all) do
       @appium_server = AppiumServer.new
@@ -39,7 +27,8 @@ if ENV['OS'] == 'Windows_NT' && ENV['COMPUTERNAME'] == 'DREW-DEV2'
 
     context 'with notepad' do
       let!(:application) do
-        RUTL::Application.new(type: :notepad, rutl_views: 'spec/views/notepad')
+        RUTL::Application.new(family: :windows, type: :notepad,
+                              views: 'spec/views/notepad')
       end
 
       after do
@@ -58,7 +47,7 @@ if ENV['OS'] == 'Windows_NT' && ENV['COMPUTERNAME'] == 'DREW-DEV2'
     context 'with my app' do
       before(:each) do
         @app = WindowsTestApp.new(name: 'c:\src\rutl\spec\hello.rb',
-                               title: /hello world/i)
+                                  title: /hello world/i)
         @app.start
         driver_opts = base_opts
         driver_opts[:caps][:appTopLevelWindow] = @app.window_handle_string

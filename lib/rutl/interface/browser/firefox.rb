@@ -1,12 +1,12 @@
 require 'selenium-webdriver'
-require 'rutl/interface/base'
+require 'rutl/interface/browser/browser'
 
 module RUTL
   module Interface
     #
     # Small interface for Chrome browser.
     #
-    class Firefox < Base
+    class Firefox < Browser
       def initialize
         @logged_in = true
         options = Selenium::WebDriver::Firefox::Options.new
@@ -16,13 +16,6 @@ module RUTL
         options.add_argument('--headless') if ENV['TRAVIS'] || ENV['CIRCLECI']
         @driver = Selenium::WebDriver.for :firefox, options: options
         super
-      end
-
-      def current_view
-        url = @driver.current_url
-        view = find_view(url)
-        raise "NOT FOUND: #{url}, VIEWS: #{@views}" unless view
-        view
       end
     end
   end

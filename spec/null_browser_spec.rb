@@ -1,13 +1,14 @@
 require 'spec_helper'
-require 'rutl/interface/null'
 
-RSpec.describe RUTL::Interface::Null, :fast do
+RSpec.describe 'RUTL::Interface::Null', :fast do
   let!(:application) do
-    RUTL::Application.new(type: :null, rutl_views: 'spec/views/web')
+    RUTL::Application.new(family: :browser, type: :null,
+                          views: 'spec/views/web')
   end
 
   let(:browser2) do
-    RUTL::Application.new(type: :null, rutl_views: 'spec/views/web')
+    RUTL::Application.new(family: :browser, type: :null,
+                          views: 'spec/views/web')
   end
 
   before do
