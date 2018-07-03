@@ -26,13 +26,13 @@ if ENV['OS'] == 'Windows_NT' && ENV['COMPUTERNAME'] == 'DREW-DEV2'
     end
 
     context 'with notepad' do
-      let!(:application) do
+      let!(:app) do
         RUTL::Application.new(family: :windows, type: :notepad,
                               views: 'spec/views/notepad')
       end
 
       after do
-        application.quit
+        app.quit
       end
 
       it 'types some text and clears and retypes' do

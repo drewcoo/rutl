@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe 'RUTL::Interface::Null', :fast do
-  let!(:application) do
+  let!(:app) do
     RUTL::Application.new(family: :browser, type: :null,
                           views: 'spec/views/web')
   end
@@ -36,12 +36,12 @@ RSpec.describe 'RUTL::Interface::Null', :fast do
   end
 
   it 'enter some text' do
-    password_text = 'foobarbaz'
+    password_text.set 'foobarbaz'
     expect(password_text).to eq 'foobarbaz'
   end
 
   it 'do a thing' do
-    password_text = 'am i texting'
+    password_text.set 'am i texting'
     ok_link.click
     expect(okay_text.to_s).to eq ''
   end
@@ -66,28 +66,26 @@ RSpec.describe 'RUTL::Interface::Null', :fast do
 
   context 'with another browser instance' do
     before do
-      # We have to call this browser by name.
-      # The shortcut assumes we're going to "browser."
       browser2.goto(View1)
     end
 
     it 'reads and write text' do
       browser2.goto(View1)
-      browser2.password_text = 'changeme'
+      browser2.password_text.set 'changeme'
       expect(browser2.password_text).to eq 'changeme'
     end
 
     it 'changes text' do
       browser2.goto(View1)
-      browser2.password_text = 'changeme'
-      browser2.password_text = 'changed'
+      browser2.password_text.set 'changeme'
+      browser2.password_text.set 'changed'
       expect(browser2.password_text).to eq 'changed'
     end
 
     it 'changes multiple fake text fields' do
       browser2.goto(View1)
-      browser2.password_text = 'foo'
-      browser2.okay_text = 'bar'
+      browser2.password_text.set 'foo'
+      browser2.okay_text.set 'bar'
       expect(browser2.password_text).to eq 'foo'
     end
   end

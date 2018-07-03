@@ -66,7 +66,7 @@ module RUTL
     # As it is, this seems silly to break into pieces for Rubocop.
     # rubocop:disable Metrics/MethodLength
     def add_method(context:, klass:, name:, setter: false)
-      name = "#{name}_#{klass.downcase}"
+      name = "#{name}_#{klass.downcase}" if RUTL::HUNGARIAN
       constant = Module.const_get("RUTL::Element::#{klass.capitalize}")
       self.class.class_exec do
         if setter
