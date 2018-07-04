@@ -27,7 +27,9 @@ class WindowsTestApp
 
   def start
     puts 'STARTING!!!'
-    system "start \"NO TITLE\" \"#{@name}\""
+    str = "start \"NO TITLE\" \"#{@name}\""
+    puts str
+    system str
     wait_for_started
   end
 
