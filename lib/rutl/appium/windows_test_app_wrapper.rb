@@ -13,7 +13,7 @@ class WindowsTestApp
   end
 
   def find_window_by_title
-    sytem('tasklist /fi "windowtitle eq Hello World"')
+    system('tasklist /fi "windowtitle eq Hello World"')
     result = Win32::Window.find(title: @title)
     raise 'found more than one instance of app' if result.size > 1
     result.empty? ? false : result.first
