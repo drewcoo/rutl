@@ -27,3 +27,7 @@ before_test:
 
 test_script:
   - bundle exec rspec
+
+artifacts:
+  - path: install.log
+    name: WAD installer log
