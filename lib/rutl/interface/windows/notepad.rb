@@ -12,8 +12,10 @@ module RUTL
         @app_name = 'notepad.exe'
         driver_opts = base_opts
         driver_opts[:caps][:app] = 'C:\Windows\System32\notepad.exe'
+        puts 'appium start this thing'
         @driver = Appium::Driver.new(driver_opts, false)
         @driver.start
+        puts 'ok, notepad finally started'
         super
       end
 

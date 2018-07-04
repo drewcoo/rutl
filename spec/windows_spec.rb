@@ -16,8 +16,10 @@ if ENV['OS'] == 'Windows_NT'
 
   RSpec.describe 'windows tests' do
     before(:all) do
+      puts 'starting appium'
       @appium_server = AppiumServer.new
       @appium_server.start
+      puts 'appium started'
     end
 
     after(:all) do
