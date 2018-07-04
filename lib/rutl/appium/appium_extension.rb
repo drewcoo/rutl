@@ -5,7 +5,9 @@ module Appium
   #
   class Driver
     def start
+      puts 'really finally starting driver, honest'
       start_driver
+      puts 'ok. started.'
     rescue RuntimeError => e
       # puts "YES, RUNTIME ERROR" if e.is_a? RuntimeError
       if e.cause.to_s =~ /Failed to open TCP connection/
