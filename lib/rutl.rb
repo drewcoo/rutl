@@ -27,6 +27,8 @@ module RUTL
   #   bar_link.click
   # instead of
   #   bar.click
+  #
+  # And I like it so it goes on by default.
   HUNGARIAN = true
 
   # If this RUTL::SCREENSHOT_DIR or ENV['SCREENSHOT_DIR']

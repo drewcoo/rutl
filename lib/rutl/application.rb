@@ -11,16 +11,10 @@ module RUTL
     attr_reader :interface
 
     def initialize(family:, type:, views: RUTL::VIEWS || ENV['RUTL_VIEWS'])
-      puts 'newing . . .'
-      if views.nil? || views.empty?
-        raise "Set RUTL::VIEWS or ENV['RUTL_VIEWS'] or pass dir as views:"
-      end
+      raise "Must set views!" if views.nil? || views.empty?
       # This is kind of evil. Figure out how to ditch the $ variable.
       $application = self
-      @interface = nil # TODO: Why this line? Do I need to do this?
-      puts 'load interface . . . '
       @interface = load_interface(family: family, type: type)
-      puts 'load views . .. '
       @interface.views = load_views(directory: views)
     end
 

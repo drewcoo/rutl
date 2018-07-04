@@ -16,10 +16,8 @@ if ENV['OS'] == 'Windows_NT'
 
   RSpec.describe 'windows tests' do
     before(:all) do
-      puts 'starting appium'
       @appium_server = AppiumServer.new
       @appium_server.start
-      puts 'appium started'
     end
 
     after(:all) do
@@ -27,7 +25,7 @@ if ENV['OS'] == 'Windows_NT'
     end
 
     context 'with notepad' do
-      let!(:app) do
+      let(:app) do
         RUTL::Application.new(family: :windows, type: :notepad,
                               views: 'spec/views/notepad')
       end
@@ -36,8 +34,7 @@ if ENV['OS'] == 'Windows_NT'
         app.quit
       end
 
-#Focus on this to get it working on AppVeyor
-      fit 'types some text and clears and retypes' do
+      it 'types some text and clears and retypes' do
         string = 'hello'
         edit_text.set string
         edit_text.clear

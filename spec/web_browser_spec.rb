@@ -26,13 +26,11 @@ require 'webdrivers' unless ENV['CIRCLECI']
   #
   RSpec.describe "RUTL::Interface::#{browser_type.to_s.pascal_case}",
                  browser_type, :slow do
-    let!(:app) do
-      RUTL::Application.new(family: :browser, type: browser_type,
-                            views: 'spec/views/web')
-    end
-
-    before do
-      goto(InternetLoginView)
+    let(:app) do
+      browser = RUTL::Application.new(family: :browser, type: browser_type,
+                                      views: 'spec/views/web')
+      browser.goto(InternetLoginView)
+      browser
     end
 
     after do
@@ -87,15 +85,14 @@ require 'webdrivers' unless ENV['CIRCLECI']
       before do
         app.username_text.set 'tomsmith'
         app.password_text.set 'SuperSecretPassword!'
+        login_button.click
       end
 
       it 'lands on logged in view' do
-        login_button.click
         expect(current_view).to be_view(InternetLoggedInView)
       end
 
       it 'can log back out' do
-        login_button.click
         logout_button.click
         expect(current_view.url).to eq InternetLoginView.url
       end

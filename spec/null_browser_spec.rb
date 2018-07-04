@@ -1,18 +1,18 @@
 require 'spec_helper'
 
 RSpec.describe 'RUTL::Interface::Null', :fast do
-  let!(:app) do
-    RUTL::Application.new(family: :browser, type: :null,
-                          views: 'spec/views/web')
+  let(:app) do
+    browser = RUTL::Application.new(family: :browser, type: :null,
+                              views: 'spec/views/web')
+    browser.goto(View1)
+    browser
   end
 
   let(:browser2) do
-    RUTL::Application.new(family: :browser, type: :null,
-                          views: 'spec/views/web')
-  end
-
-  before do
-    goto(View1)
+    browser = RUTL::Application.new(family: :browser, type: :null,
+                                    views: 'spec/views/web')
+    browser.goto(View1)
+    browser
   end
 
   it 'click a button and check the return' do
@@ -65,25 +65,18 @@ RSpec.describe 'RUTL::Interface::Null', :fast do
   end
 
   context 'with another browser instance' do
-    before do
-      browser2.goto(View1)
-    end
-
     it 'reads and write text' do
-      browser2.goto(View1)
       browser2.password_text.set 'changeme'
       expect(browser2.password_text).to eq 'changeme'
     end
 
     it 'changes text' do
-      browser2.goto(View1)
       browser2.password_text.set 'changeme'
       browser2.password_text.set 'changed'
       expect(browser2.password_text).to eq 'changed'
     end
 
     it 'changes multiple fake text fields' do
-      browser2.goto(View1)
       browser2.password_text.set 'foo'
       browser2.okay_text.set 'bar'
       expect(browser2.password_text).to eq 'foo'

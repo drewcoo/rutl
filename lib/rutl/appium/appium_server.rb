@@ -18,8 +18,7 @@ class AppiumServer
 
   def start
     raise 'server already started' if started?
-    #quiet_cmd('start "appium" cmd /c appium')
-    system('start /b "appium" cmd /c appium')
+    quiet_cmd('start "appium" cmd /c appium')
     await -> { started? }
   end
 

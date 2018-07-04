@@ -9,8 +9,11 @@ cache:
 
 install:
   - set PATH=C:\Ruby25-x64\bin;%PATH%
+  # the bundle has stuff for mulitple profiles mixed together
   - bundle install
+  # Chome, obviously but calling it out in case I make multiple profiles.
   - choco install googlechrome
+  # This one's for iedriver.
   - reg import bin\ie.reg
   - npm install -g appium
   # Can't choco install WinAppDriver yet.
