@@ -8,6 +8,7 @@ module RUTL
     #
     class Notepad < WindowsApp
       def initialize
+        puts 'new notepad !!!'
         @app_name = 'notepad.exe'
         driver_opts = base_opts
         driver_opts[:caps][:app] = 'C:\Windows\System32\notepad.exe'
