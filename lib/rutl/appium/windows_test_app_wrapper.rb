@@ -26,6 +26,7 @@ class WindowsTestApp
   end
 
   def start
+    puts 'STARTING!!!'
     system "start \"NO TITLE\" \"#{@name}\""
     wait_for_started
   end
