@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe 'RUTL::Interface::Null', :fast do
   let(:app) do
     browser = RUTL::Application.new(family: :browser, type: :null,
-                              views: 'spec/views/web')
+                                    views: 'spec/views/web')
     browser.goto(View1)
     browser
   end

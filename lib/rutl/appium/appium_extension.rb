@@ -20,13 +20,6 @@ module Appium
       puts "\n\n" + (e.methods - Class.methods)
     end
 
-    def app_open?
-      find_elements(:id, 0)
-      true
-    rescue Selenium::WebDriver::Error::NoSuchWindowError
-      false
-    end
-
     def quit
       driver_quit
     end

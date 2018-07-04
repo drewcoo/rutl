@@ -19,6 +19,13 @@ module RUTL
         system "taskkill /f /im #{@app_name} /t 1>nul 2>&1"
       end
 
+      def open?
+        @driver.find_elements(:id, 0)
+        true
+      rescue Selenium::WebDriver::Error::NoSuchWindowError
+        false
+      end
+
       def quit
         kill
         @driver.driver_quit

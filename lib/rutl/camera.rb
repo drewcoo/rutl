@@ -32,7 +32,11 @@ module RUTL
 
       FileUtils.mkdir_p @dir
       file = File.join(@dir, pathify(name))
-      @driver.save_screenshot(file)
+      if @driver.respond_to?(:save_screenshot)
+        @driver.save_screenshot(file)
+      else
+        puts "WinAppDriver doesn't screenshot when attaching to existing apps."
+      end
     end
     alias screenshot shoot
 

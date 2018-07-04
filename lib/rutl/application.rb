@@ -11,7 +11,7 @@ module RUTL
     attr_reader :interface
 
     def initialize(family:, type:, views: RUTL::VIEWS || ENV['RUTL_VIEWS'])
-      raise "Must set views!" if views.nil? || views.empty?
+      raise 'Must set views!' if views.nil? || views.empty?
       # This is kind of evil. Figure out how to ditch the $ variable.
       $application = self
       @interface = load_interface(family: family, type: type)
