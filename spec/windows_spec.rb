@@ -28,10 +28,8 @@ if ENV['OS'] == 'Windows_NT'
 
     context 'with notepad' do
       let!(:app) do
-        puts 'About to app new . . .'
         RUTL::Application.new(family: :windows, type: :notepad,
                               views: 'spec/views/notepad')
-        puts 'newed!'
       end
 
       after do
