@@ -1,5 +1,9 @@
 version: 1.0.{build}-{branch}
 
+image:
+  # need an image for Win10+ for WinAppDriver
+  - Visual Studio 2017
+
 cache:
   - vendor/bundle
 
@@ -24,7 +28,7 @@ before_test:
   - ruby -v
   - gem -v
   - bundle -v
-  - npm v appium
+  - npm -v
   - ver
 
 test_script:
