@@ -34,7 +34,8 @@ if ENV['OS'] == 'Windows_NT'
         app.quit
       end
 
-      it 'types some text and clears and retypes' do
+#Focus on this to get it working on AppVeyor
+      fit 'types some text and clears and retypes' do
         string = 'hello'
         edit_text.set string
         edit_text.clear

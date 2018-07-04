@@ -9,6 +9,11 @@ install:
   - choco install googlechrome
   - reg import bin\ie.reg
   - npm install -g appium
+  # Can't choco install WinAppDriver yet.
+  # Also, am currently hardcoding version number. When there's a new Appium/
+  # WinAppDriver pairing available this may break because the Appium will be
+  # too new.
+  - appveyor DownloadFile https://github.com/Microsoft/WinAppDriver/releases/download/v1.0/WindowsApplicationDriver.msi
 
 build: off
 
