@@ -15,8 +15,8 @@ install:
   # too new.
   - appveyor DownloadFile https://github.com/Microsoft/WinAppDriver/releases/download/v1.0/WindowsApplicationDriver.msi
   - msiexec /i WindowsApplicationDriver.msi /quiet /qn /norestart /log install.log
-  # allow developer mode - do I need this or is it already set?
-  #- reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /t REG_DWORD /f /v "AllowDevelopmentWithoutDevLicense" /d "1"
+  # allow developer mode for non-UWP-stuffs including WinAppDriver
+  - reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /t REG_DWORD /f /v "AllowDevelopmentWithoutDevLicense" /d "1"
 
 build: off
 
