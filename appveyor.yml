@@ -25,6 +25,7 @@ before_test:
   - gem -v
   - bundle -v
   - npm v appium
+  - ver
 
 test_script:
   - bundle exec rspec
