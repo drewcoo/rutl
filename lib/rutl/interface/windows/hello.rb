@@ -4,7 +4,7 @@ require 'rutl/interface/windows/windows_app'
 module RUTL
   module Interface
     #
-    # Notepad.
+    # The hello world app with an exit button.
     #
     class Hello < WindowsApp
       def file_name
@@ -21,8 +21,6 @@ module RUTL
         # 2. passing ruby.exe path as [:caps][:app] and passing hello.rb
         #    path as [:caps][:appArguments]
         driver_opts[:caps][:appTopLevelWindow] = @app.window_handle_string
-        # This means that screenshotting is busted in winappdriver
-        # for unkonwn reasons.
         @driver = Appium::Driver.new(driver_opts, false)
         @driver.start
         super

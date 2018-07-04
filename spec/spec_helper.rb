@@ -15,8 +15,9 @@ $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'rspec/default_method_object_to_app'
 require 'rspec/rutl_matchers'
 
-RUTL::SCREENSHOTS = 'tmp/screenshots'.freeze
-# The framework should do this.
+RUTL::SCREENSHOTS = File.expand_path('../tmp/screenshots', __dir__)
+
+# RUTL should really handle this itself instead of spec_helper
 FileUtils.rm_rf(RUTL::SCREENSHOTS)
 
 RSpec.configure do |config|

@@ -27,18 +27,30 @@ module RUTL
 
     def shoot(path = nil)
       return if guard
-      # Magic path is used for all auto-screenshots.
-      name = path || magic_path
-
-      FileUtils.mkdir_p @dir
-      file = File.join(@dir, pathify(name))
-      if @driver.respond_to?(:save_screenshot)
-        @driver.save_screenshot(file)
-      else
-        puts "WinAppDriver doesn't screenshot when attaching to existing apps."
-      end
+      file = prepare_shot(path)
+      cheese_already(file)
     end
     alias screenshot shoot
+
+    def prepare_shot(path = nil)
+      FileUtils.mkdir_p @dir
+      # Magic path is used for all auto-screenshots.
+      name = path || magic_path
+      File.join(@dir, pathify(name))
+    end
+
+    def cheese_already(file)
+      if @driver.respond_to?(:save_screenshot)
+        @driver.save_screenshot(file)
+      elsif @driver.respond_to?(:screenshot)
+        @driver.screenshot(file)
+      else
+        raise 'unknown screenshot method!'
+      end
+    rescue Selenium::WebDriver::Error::NoSuchWindowError
+      puts 'app closed; no photos, please'
+      # leave a zero length file as a sign that we came down this path
+    end
 
     def clean_dir(dir)
       FileUtils.rm_rf dir

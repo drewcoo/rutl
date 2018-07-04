@@ -1,6 +1,6 @@
 # Windows tests only run on Windows.
 if ENV['OS'] == 'Windows_NT'
-
+  require 'spec_helper'
   require 'em/pure_ruby'
   require 'rubygems'
   require 'appium_lib'
@@ -32,8 +32,11 @@ if ENV['OS'] == 'Windows_NT'
       it 'types some text and clears and retypes' do
         string = 'hello'
         edit_text.set string
+        screenshot
         edit_text.clear
+        screenshot
         edit_text.set string
+        screenshot
         expect(edit_text).to eq(string)
       end
     end

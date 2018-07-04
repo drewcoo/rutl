@@ -27,8 +27,8 @@ module RUTL
       end
 
       def quit
-        kill
         @driver.driver_quit
+        kill
       end
     end
   end

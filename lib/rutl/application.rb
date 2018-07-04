@@ -10,6 +10,10 @@ module RUTL
   class Application
     attr_reader :interface
 
+    def screenshot
+      @interface.camera.screenshot
+    end
+
     def initialize(family:, type:, views: RUTL::VIEWS || ENV['RUTL_VIEWS'])
       raise 'Must set views!' if views.nil? || views.empty?
       # This is kind of evil. Figure out how to ditch the $ variable.
