@@ -8,6 +8,7 @@ install:
   - bundle install
   - choco install googlechrome
   - reg import bin\ie.reg
+  - npm install -g appium
 
 build: off
 

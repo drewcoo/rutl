@@ -1,6 +1,5 @@
 # Windows tests only run on Windows.
-# And they don't run on Appveyor so I have to figure that out, too.
-if ENV['OS'] == 'Windows_NT' && ENV['COMPUTERNAME'] == 'DREW-DEV2'
+if ENV['OS'] == 'Windows_NT'
 
   require 'em/pure_ruby'
   require 'rubygems'
