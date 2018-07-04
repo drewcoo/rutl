@@ -63,13 +63,15 @@ require 'webdrivers' unless ENV['CIRCLECI']
     end
 
     it 'fails bad login' do
-    # Let's try this on Circle and Travis now.
-    #
-    #  unless ENV['CIRCLECI'] || ENV['TRAVIS']
+      unless ENV['CIRCLECI'] || ENV['TRAVIS']
         # CircleCI (Docker?) seems to have probelms with showing the div that
         # we use to determine error. Skip this on Circle for now.
         #
-        # Maybe Travis does now, too. New version of something?
+        # Looks like Travis does now, too. New version of something?
+        #
+        # This works locally and on Appveyor. Unlike Circle and Travis they're
+        # Windows.
+        #
         username_text.set 'tomsmith'
         password_text.set 'foo'
         login_button.click
@@ -78,7 +80,7 @@ require 'webdrivers' unless ENV['CIRCLECI']
         # contribute to someone else "testing the bug in" so this only tests for
         # there being an error and not the type of error.
         expect(current_view).to be_view(InternetLoginErrorView)
-    #  end
+      end
     end
 
     context 'when log in' do
