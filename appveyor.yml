@@ -6,7 +6,7 @@ image:
 
 cache:
   - C:\Users\appveyor\AppData\Roaming\npm
-  #- C:\projects\rutl\path
+  - vendor/bundle
   # Chocolatey MSIs - out of luck!
 
 install:
