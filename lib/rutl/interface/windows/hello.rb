@@ -20,13 +20,9 @@ module RUTL
         # 1. passing hello.rb path as [:caps][:app]
         # 2. passing ruby.exe path as [:caps][:app] and passing hello.rb
         #    path as [:caps][:appArguments]
-        puts "window_handle_string: #{@app.window_handle_string}"
         driver_opts[:caps][:appTopLevelWindow] = @app.window_handle_string
-        puts 'driver new . . .'
         @driver = Appium::Driver.new(driver_opts, false)
-        puts 'and now start . . . .'
         @driver.start
-        puts 'started'
         super
       end
 

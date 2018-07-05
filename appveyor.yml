@@ -40,3 +40,5 @@ test_script:
 artifacts:
   - path: install.log
     name: WAD installer log
+
+  - path: tmp\screenshots

@@ -13,7 +13,6 @@ class WindowsTestApp
   end
 
   def find_window_by_title
-    system('tasklist /fi "windowtitle eq Hello World"')
     result = Win32::Window.find(title: @title)
     raise 'found more than one instance of app' if result.size > 1
     result.empty? ? false : result.first
@@ -26,10 +25,7 @@ class WindowsTestApp
   end
 
   def start
-    puts 'STARTING!!!'
-    str = "start \"NO TITLE\" #{@name}"
-    puts str
-    system str
+    quiet_cmd "start \"NO TITLE\" #{@name}"
     wait_for_started
   end
 
