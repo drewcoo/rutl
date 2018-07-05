@@ -12,7 +12,7 @@ module RUTL
       end
 
       def initialize
-        @app = WindowsTestApp.new(name: "ruby \"#{file_name}\"",
+        @app = WindowsTestApp.new(name: "ruby #{file_name}",
                                   title: /hello world/i)
         @app.start
         driver_opts = base_opts
