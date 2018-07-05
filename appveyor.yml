@@ -6,7 +6,7 @@ image:
 
 cache:
   - C:\Users\appveyor\AppData\Roaming\npm
-  - C:\Ruby25-x64\lib\ruby\gems\2.5.0\gems
+  # - vendor/bundle
   # Chocolatey MSIs - out of luck!
 
 install:
@@ -36,6 +36,7 @@ before_test:
   - bundle info rubocop
   - npm -v
   - ver
+  - dir
 
 test_script:
   - bundle exec rspec
