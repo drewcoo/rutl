@@ -51,7 +51,7 @@ if ENV['OS'] == 'Windows_NT'
         app.quit
       end
 
-      fit 'can close app' do
+      it 'can close app' do
         close_button.click
         expect(app.open?).to be false
       end
