@@ -1,4 +1,3 @@
-/.bundle/
 /*.gem
 /.yardoc
 /debug.log
@@ -9,3 +8,4 @@
 /pkg/
 /spec/reports/
 /tmp/
+/vendor/

@@ -1,12 +1,12 @@
 require 'selenium-webdriver'
-require 'rutl/interface/base'
+require 'rutl/interface/browser/browser'
 
 module RUTL
   module Interface
     #
     # Small interface for Chrome browser.
     #
-    class InternetExplorer < Base
+    class InternetExplorer < Browser
       def initialize
         @logged_in = true
         options = Selenium::WebDriver::IE::Options.new
@@ -17,13 +17,6 @@ module RUTL
         options.initial_browser_url = 'https://www.google.com/'
         @driver = Selenium::WebDriver.for :internet_explorer, options: options
         super
-      end
-
-      def current_view
-        url = @driver.current_url
-        view = find_view(url)
-        raise "NOT FOUND: #{url}, VIEWS: #{@views}" unless view
-        view
       end
     end
   end

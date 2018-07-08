@@ -1,11 +1,11 @@
-require 'rutl/interface/base'
+require 'rutl/interface/browser/browser'
 
 module RUTL
   module Interface
     #
     # Interface-level code for fake application.
     #
-    class Null < Base
+    class Null < Browser
       def initialize
         context = RUTL::Element::ElementContext.new(destinations: nil,
                                                     interface: self,
@@ -20,7 +20,8 @@ module RUTL
 
       def current_view
         # Default to @view.first if not set?
-        # An application can always check its current URL but the null driver can't.
+        # An application can always check its current URL but
+        # the null driver can't.
         @current_view ||= @views.first
       end
 

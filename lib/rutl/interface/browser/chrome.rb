@@ -1,12 +1,12 @@
 require 'selenium-webdriver'
-require 'rutl/interface/base'
+require 'rutl/interface/browser/browser'
 
 module RUTL
   module Interface
     #
     # Small interface for Chrome browser.
     #
-    class Chrome < Base
+    class Chrome < Browser
       # rubocop:disable Metrics/MethodLength
       def initialize
         @logged_in = true
@@ -24,13 +24,6 @@ module RUTL
         super
       end
       # rubocop:enable Metrics/MethodLength
-
-      def current_view
-        url = @driver.current_url
-        view = find_view(url)
-        raise "NOT FOUND: #{url}, VIEWS: #{@views}" unless view
-        view
-      end
     end
   end
 end

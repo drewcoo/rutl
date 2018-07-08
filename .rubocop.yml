@@ -33,7 +33,7 @@ Metrics/MethodLength:
 # But should think about this first.
 Style/BracesAroundHashParameters:
   Exclude:
-    - 'spec/pages/**/*'
+    - 'spec/views/**/*'
 
 # NullDriverPageElement plays dirty tricks with @@variables to simulate
 # longer-lived data sources.

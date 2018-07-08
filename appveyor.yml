@@ -1,13 +1,31 @@
 version: 1.0.{build}-{branch}
 
+image:
+  # need an image for Win10+ for WinAppDriver
+  - Visual Studio 2017
+
 cache:
+  - C:\Users\appveyor\AppData\Roaming\npm
   - vendor/bundle
+  # Chocolatey MSIs - out of luck!
 
 install:
   - set PATH=C:\Ruby25-x64\bin;%PATH%
+  # the bundle has stuff for mulitple profiles mixed together
   - bundle install
+  # Chome, obviously but calling it out in case I make multiple profiles.
   - choco install googlechrome
+  # This one's for iedriver.
   - reg import bin\ie.reg
+  - npm install -g appium
+  # Can't choco install WinAppDriver yet.
+  # Also, am currently hardcoding version number. When there's a new Appium/
+  # WinAppDriver pairing available this may break because the Appium will be
+  # too new.
+  - appveyor DownloadFile https://github.com/Microsoft/WinAppDriver/releases/download/v1.0/WindowsApplicationDriver.msi
+  - msiexec /i WindowsApplicationDriver.msi /quiet /qn /norestart /log install.log
+  # allow developer mode for non-UWP-stuffs including WinAppDriver
+  - reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /t REG_DWORD /f /v "AllowDevelopmentWithoutDevLicense" /d "1"
 
 build: off
 
@@ -15,6 +33,16 @@ before_test:
   - ruby -v
   - gem -v
   - bundle -v
+  - bundle info rubocop
+  - npm -v
+  - ver
+  - dir
 
 test_script:
   - bundle exec rspec
+
+artifacts:
+  - path: install.log
+    name: WAD installer log
+
+  - path: tmp\screenshots

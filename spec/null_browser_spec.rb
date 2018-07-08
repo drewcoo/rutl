@@ -1,19 +1,18 @@
 require 'spec_helper'
-require 'rutl/interface/null'
 
-RUTL::VIEWS = 'spec/views/web'.freeze
-
-RSpec.describe RUTL::Interface::Null, :fast do
-  let!(:application) do
-    RUTL::Application.new(type: :null)
+RSpec.describe 'RUTL::Interface::Null', :fast do
+  let(:app) do
+    browser = RUTL::Application.new(family: :browser, type: :null,
+                                    views: 'spec/views/web')
+    browser.goto(View1)
+    browser
   end
 
   let(:browser2) do
-    RUTL::Application.new(type: :null)
-  end
-
-  before do
-    goto(View1)
+    browser = RUTL::Application.new(family: :browser, type: :null,
+                                    views: 'spec/views/web')
+    browser.goto(View1)
+    browser
   end
 
   it 'click a button and check the return' do
@@ -37,12 +36,12 @@ RSpec.describe RUTL::Interface::Null, :fast do
   end
 
   it 'enter some text' do
-    password_text = 'foobarbaz'
+    password_text.set 'foobarbaz'
     expect(password_text).to eq 'foobarbaz'
   end
 
   it 'do a thing' do
-    password_text = 'am i texting'
+    password_text.set 'am i texting'
     ok_link.click
     expect(okay_text.to_s).to eq ''
   end
@@ -66,29 +65,20 @@ RSpec.describe RUTL::Interface::Null, :fast do
   end
 
   context 'with another browser instance' do
-    before do
-      # We have to call this browser by name.
-      # The shortcut assumes we're going to "browser."
-      browser2.goto(View1)
-    end
-
     it 'reads and write text' do
-      browser2.goto(View1)
-      browser2.password_text = 'changeme'
+      browser2.password_text.set 'changeme'
       expect(browser2.password_text).to eq 'changeme'
     end
 
     it 'changes text' do
-      browser2.goto(View1)
-      browser2.password_text = 'changeme'
-      browser2.password_text = 'changed'
+      browser2.password_text.set 'changeme'
+      browser2.password_text.set 'changed'
       expect(browser2.password_text).to eq 'changed'
     end
 
     it 'changes multiple fake text fields' do
-      browser2.goto(View1)
-      browser2.password_text = 'foo'
-      browser2.okay_text = 'bar'
+      browser2.password_text.set 'foo'
+      browser2.okay_text.set 'bar'
       expect(browser2.password_text).to eq 'foo'
     end
   end

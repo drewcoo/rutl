@@ -29,18 +29,10 @@ module RUTL
       @interface.driver.navigate.to(url)
     end
 
-
-
     def loaded?
       # Default to only checking url to see if view loaded.
       url == @interface.driver.current_url
     end
-
-
-
-
-
-
 
     # Intentionally use a class variable to hald views. Once they're
     # all loaded they are all loaded for everyone.
@@ -61,10 +53,10 @@ module RUTL
     # Written by Application and only used internally.
     attr_writer :interface
 
-    #def loaded?
-    #  # In case I try calling this without defining it first.
-    #  raise 'No #loaded? method defined.'
-    #end
+    # def loaded?
+    #   # In case I try calling this without defining it first.
+    #   raise 'No #loaded? method defined.'
+    # end
 
     # Dynamically add a method, :<name> (or :<name>= if setter)
     # to the current class where that method creates an instance
@@ -74,7 +66,7 @@ module RUTL
     # As it is, this seems silly to break into pieces for Rubocop.
     # rubocop:disable Metrics/MethodLength
     def add_method(context:, klass:, name:, setter: false)
-      name = "#{name}_#{klass.downcase}"
+      name = "#{name}_#{klass.downcase}" if RUTL::HUNGARIAN
       constant = Module.const_get("RUTL::Element::#{klass.capitalize}")
       self.class.class_exec do
         if setter
